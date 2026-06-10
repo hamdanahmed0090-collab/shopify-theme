@@ -1,0 +1,21 @@
+<div class="lp-auth-container" style="max-width: 1000px; margin: 40px auto; padding: 20px;">
+  <div style="border: 3px dashed #2d5a27; background-color: #f0f9f0; padding: 30px; display: flex; align-items: center; gap: 20px; border-radius: 10px;">
+    <div class="lp-auth-text">
+      <h2 style="color: #2d5a27; margin: 0; font-size: 24px; text-transform: uppercase;">Garantie d'authenticité :</h2>
+      <p style="margin: 10px 0; font-weight: bold;">Attention : de nombreuses contrefaçons circulent sur internet.</p>
+      <p>Nous garantissons <strong>l'authenticité</strong> et la <strong>qualité supérieure</strong> de nos produits.</p>
+      <p style="color: #2d5a27; font-weight: bold;">Site Officiel : {{ shop.domain }} ✅</p>
+    </div>
+    {% comment %} <img src="{{ section.settings.badge | img_url: '200x' }}" style="max-width: 150px;"> {% endcomment %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LP - Authenticity Box",
+  "settings": [
+    { "type": "image_picker", "id": "badge", "label": "Side Image/Badge" }
+  ],
+  "presets": [{ "name": "LP - Authenticity Box" }]
+}
+{% endschema %}

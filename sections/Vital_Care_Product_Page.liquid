@@ -1,0 +1,1449 @@
+{% comment %}
+  Converted from Vital_Care_Page.html for use as a Shopify product section.
+  The Shopify theme provides the page <head>, header, announcement bar, and footer.
+{% endcomment %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign product_form_id = 'CCProductForm-' | append: section.id %}
+{% assign cc_main_image_id = 'CCMainImage-' | append: section.id %}
+
+<style>
+
+/* ===== Engineer 0 styles ===== */
+/* ===== ANNOUNCEMENT BAR ===== */
+.cc-root .cc-announce {
+  background: #2B7FD9 !important;
+  width: 100% !important;
+  min-height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 16px !important;
+}
+.cc-root .cc-announce-text {
+  color: #FFFFFF !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  margin: 0 !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* ===== NAV ===== */
+.cc-root .cc-nav {
+  background: #FFFFFF !important;
+  height: 72px !important;
+  width: 100% !important;
+  border-bottom: 1px solid #D9E2EC !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 32px !important;
+}
+.cc-root .cc-nav-inner {
+  width: 100% !important;
+  max-width: 1180px !important;
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr !important;
+  align-items: center !important;
+  gap: 24px !important;
+}
+.cc-root .cc-nav-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  justify-self: start !important;
+}
+.cc-root .cc-nav-mark {
+  width: 28px !important;
+  height: 28px !important;
+  background: #2B7FD9 !important;
+  border-radius: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #FFFFFF !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 14px !important;
+}
+.cc-root .cc-nav-mark::after {
+  content: '+' !important;
+  color: #FFFFFF !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+.cc-root .cc-nav-logo {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 22px !important;
+  color: #1A2B4A !important;
+  margin: 0 !important;
+}
+.cc-root .cc-nav-links {
+  display: flex !important;
+  align-items: center !important;
+  gap: 32px !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  justify-self: center !important;
+}
+.cc-root .cc-nav-link {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  color: #1A2B4A !important;
+  text-decoration: none !important;
+  padding: 4px 0 !important;
+  border-bottom: 1px solid transparent !important;
+}
+.cc-root .cc-nav-link:hover {
+  color: #2B7FD9 !important;
+  border-bottom: 1px solid #2B7FD9 !important;
+}
+.cc-root .cc-nav-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  justify-self: end !important;
+}
+.cc-root .cc-nav-cart {
+  width: 24px !important;
+  height: 24px !important;
+  border: 1.5px solid #1A2B4A !important;
+  border-radius: 4px !important;
+  position: relative !important;
+  display: inline-block !important;
+}
+.cc-root .cc-nav-cart::after {
+  content: '🛒' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  font-size: 12px !important;
+  color: #1A2B4A !important;
+}
+.cc-root .cc-nav-lang {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  color: #1A2B4A !important;
+  background: transparent !important;
+  border: 1px solid #D9E2EC !important;
+  border-radius: 8px !important;
+  padding: 6px 10px !important;
+  cursor: pointer !important;
+}
+
+/* ===== HERO ===== */
+.cc-root .cc-hero {
+  background: #FFFFFF !important;
+  padding: 72px 32px !important;
+  width: 100% !important;
+}
+.cc-root .cc-hero-inner {
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 48px !important;
+  align-items: start !important;
+}
+.cc-root .cc-hero-gallery {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+.cc-root .cc-hero-image {
+  width: 100% !important;
+  aspect-ratio: 4/5 !important;
+  background: #E8F1FA !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 12px rgba(26, 43, 74, 0.08) !important;
+  position: relative !important;
+}
+.cc-root .cc-hero-image::after {
+  content: '[ HERO IMAGE — Healthcare professional with product, 4:5 ratio ]' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: #5A6B82 !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  text-align: center !important;
+  padding: 0 24px !important;
+}
+.cc-root .cc-hero-thumbs {
+  display: flex !important;
+  gap: 16px !important;
+}
+.cc-root .cc-hero-thumb {
+  width: 80px !important;
+  height: 80px !important;
+  background: #E8F1FA !important;
+  border-radius: 8px !important;
+  border: 1px solid #D9E2EC !important;
+  position: relative !important;
+  flex-shrink: 0 !important;
+}
+.cc-root .cc-hero-thumb::after {
+  content: '[ THUMB ]' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: #5A6B82 !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 10px !important;
+}
+.cc-root .cc-hero-info {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+.cc-root .cc-hero-breadcrumb {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  color: #5A6B82 !important;
+  margin: 0 !important;
+}
+.cc-root .cc-hero-headline {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 36px !important;
+  color: #1A2B4A !important;
+  line-height: 1.15 !important;
+  margin: 0 !important;
+}
+.cc-root .cc-hero-rating {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.cc-root .cc-hero-stars {
+  color: #F5B400 !important;
+  font-size: 16px !important;
+  font-family: 'Inter', sans-serif !important;
+  letter-spacing: 2px !important;
+}
+.cc-root .cc-hero-rating-text {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  color: #5A6B82 !important;
+  margin: 0 !important;
+}
+.cc-root .cc-hero-price-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+.cc-root .cc-hero-price-old {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 16px !important;
+  color: #5A6B82 !important;
+  text-decoration: line-through !important;
+  margin: 0 !important;
+}
+.cc-root .cc-hero-price-new {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 28px !important;
+  color: #2B7FD9 !important;
+  margin: 0 !important;
+}
+.cc-root .cc-hero-discount {
+  background: #2B7FD9 !important;
+  color: #FFFFFF !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  display: inline-block !important;
+}
+.cc-root .cc-hero-benefits {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 8px 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+.cc-root .cc-hero-benefit {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 16px !important;
+  color: #1A2B4A !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+}
+.cc-root .cc-hero-benefit::before {
+  content: '✓' !important;
+  color: #2B7FD9 !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  flex-shrink: 0 !important;
+}
+.cc-root .cc-hero-countdown {
+  display: flex !important;
+  gap: 8px !important;
+  margin-top: 8px !important;
+}
+.cc-root .cc-hero-cd-box {
+  flex: 1 !important;
+  background: #E8F1FA !important;
+  border-radius: 8px !important;
+  padding: 10px 8px !important;
+  text-align: center !important;
+}
+.cc-root .cc-hero-cd-num {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 22px !important;
+  color: #1A2B4A !important;
+  display: block !important;
+  margin: 0 !important;
+}
+.cc-root .cc-hero-cd-label {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 12px !important;
+  color: #5A6B82 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  margin: 0 !important;
+}
+.cc-root .cc-hero-bundles {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  margin-top: 8px !important;
+}
+.cc-root .cc-hero-bundle {
+  border: 1px solid #D9E2EC !important;
+  border-radius: 12px !important;
+  padding: 16px 20px !important;
+  background: #FFFFFF !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 8px !important;
+  position: relative !important;
+}
+.cc-root .cc-hero-bundle-popular {
+  border: 2px solid #2B7FD9 !important;
+}
+.cc-root .cc-hero-bundle-badge {
+  position: absolute !important;
+  top: -10px !important;
+  right: 16px !important;
+  background: #2B7FD9 !important;
+  color: #FFFFFF !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  letter-spacing: 0.05em !important;
+}
+.cc-root .cc-hero-bundle-name {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  color: #1A2B4A !important;
+  margin: 0 !important;
+}
+.cc-root .cc-hero-bundle-size {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  color: #5A6B82 !important;
+  margin: 0 !important;
+}
+.cc-root .cc-hero-bundle-unit {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  color: #5A6B82 !important;
+  margin: 0 !important;
+  text-align: right !important;
+}
+.cc-root .cc-hero-bundle-total {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  color: #2B7FD9 !important;
+  margin: 0 !important;
+  text-align: right !important;
+}
+.cc-root .cc-hero-cta {
+  display: block !important;
+  width: 100% !important;
+  background: #2B7FD9 !important;
+  color: #FFFFFF !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  padding: 16px 24px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  box-shadow: 0 2px 6px rgba(43, 127, 217, 0.25) !important;
+  cursor: pointer !important;
+  margin-top: 8px !important;
+  letter-spacing: 0.04em !important;
+}
+.cc-root .cc-hero-cta:hover {
+  background: #1E5FA8 !important;
+}
+.cc-root .cc-hero-pay {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  margin-top: 4px !important;
+}
+.cc-root .cc-hero-pay-icon {
+  width: 44px !important;
+  height: 28px !important;
+  background: #E8F1FA !important;
+  border-radius: 4px !important;
+  border: 1px solid #D9E2EC !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #5A6B82 !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+}
+.cc-root .cc-hero-trust {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin-top: 8px !important;
+  padding-top: 16px !important;
+  border-top: 1px solid #D9E2EC !important;
+}
+.cc-root .cc-hero-trust-row {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  color: #1A2B4A !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 0 !important;
+}
+.cc-root .cc-hero-trust-row::before {
+  content: '✓' !important;
+  color: #2B7FD9 !important;
+  font-weight: 700 !important;
+}
+
+/* ===== BEFORE / AFTER ===== */
+.cc-root .cc-ba {
+  background: #E8F1FA !important;
+  padding: 72px 32px !important;
+  width: 100% !important;
+}
+.cc-root .cc-ba-inner {
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 48px !important;
+  align-items: center !important;
+}
+.cc-root .cc-ba-images {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+.cc-root .cc-ba-image {
+  width: 100% !important;
+  aspect-ratio: 4/3 !important;
+  background: #FFFFFF !important;
+  border-radius: 12px !important;
+  position: relative !important;
+  box-shadow: 0 2px 12px rgba(26, 43, 74, 0.08) !important;
+}
+.cc-root .cc-ba-image-before::after {
+  content: '[ BEFORE IMAGE — Pre-use condition, 4:3 ratio ]' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: #5A6B82 !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  text-align: center !important;
+  padding: 0 24px !important;
+}
+.cc-root .cc-ba-image-after::after {
+  content: '[ AFTER IMAGE — Post-use result, 4:3 ratio ]' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: #5A6B82 !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  text-align: center !important;
+  padding: 0 24px !important;
+}
+.cc-root .cc-ba-content {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+.cc-root .cc-ba-eyebrow {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  color: #1E5FA8 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  margin: 0 !important;
+}
+.cc-root .cc-ba-headline {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 28px !important;
+  color: #1A2B4A !important;
+  line-height: 1.2 !important;
+  margin: 0 !important;
+}
+.cc-root .cc-ba-body {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 16px !important;
+  color: #5A6B82 !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+}
+.cc-root .cc-ba-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 8px 0 0 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+.cc-root .cc-ba-item {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 16px !important;
+  color: #1A2B4A !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+}
+.cc-root .cc-ba-item::before {
+  content: '✓' !important;
+  color: #2B7FD9 !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  flex-shrink: 0 !important;
+}
+
+/* ===== INGREDIENT / FEATURE ===== */
+.cc-root .cc-feat {
+  background: #FFFFFF !important;
+  padding: 72px 32px !important;
+  width: 100% !important;
+}
+.cc-root .cc-feat-inner {
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 48px !important;
+  align-items: center !important;
+}
+.cc-root .cc-feat-content {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+.cc-root .cc-feat-eyebrow {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  color: #1E5FA8 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  margin: 0 !important;
+}
+.cc-root .cc-feat-headline {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 28px !important;
+  color: #1A2B4A !important;
+  line-height: 1.2 !important;
+  margin: 0 !important;
+}
+.cc-root .cc-feat-body {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 16px !important;
+  color: #5A6B82 !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+}
+.cc-root .cc-feat-sub {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  color: #2B7FD9 !important;
+  line-height: 1.4 !important;
+  margin: 8px 0 0 0 !important;
+}
+.cc-root .cc-feat-image {
+  width: 100% !important;
+  aspect-ratio: 4/5 !important;
+  background: #E8F1FA !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 12px rgba(26, 43, 74, 0.08) !important;
+  position: relative !important;
+}
+.cc-root .cc-feat-image::after {
+  content: '[ FEATURE IMAGE — Product detail / professional context, 4:5 ratio ]' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: #5A6B82 !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  text-align: center !important;
+  padding: 0 24px !important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .cc-root .cc-nav-links { gap: 20px !important; }
+  .cc-root .cc-nav-link { font-size: 14px !important; }
+  .cc-root .cc-hero-inner,
+  .cc-root .cc-ba-inner,
+  .cc-root .cc-feat-inner {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .cc-root .cc-hero-headline { font-size: 30px !important; }
+  .cc-root .cc-ba-headline,
+  .cc-root .cc-feat-headline { font-size: 24px !important; }
+}
+@media (max-width: 540px) {
+  .cc-root .cc-nav { height: auto !important; padding: 12px 16px !important; }
+  .cc-root .cc-nav-inner { grid-template-columns: auto auto !important; }
+  .cc-root .cc-nav-links { display: none !important; }
+  .cc-root .cc-hero,
+  .cc-root .cc-ba,
+  .cc-root .cc-feat {
+    padding: 48px 16px !important;
+  }
+  .cc-root .cc-hero-headline { font-size: 26px !important; }
+  .cc-root .cc-hero-price-new { font-size: 24px !important; }
+  .cc-root .cc-hero-bundle { grid-template-columns: 1fr !important; }
+  .cc-root .cc-hero-bundle-unit,
+  .cc-root .cc-hero-bundle-total { text-align: left !important; }
+  .cc-root .cc-hero-thumb { width: 64px !important; height: 64px !important; }
+  .cc-root .cc-hero-cd-num { font-size: 18px !important; }
+  .cc-root .cc-ba-headline,
+  .cc-root .cc-feat-headline { font-size: 22px !important; }
+}
+
+/* ===== Engineer 1 styles ===== */
+.cc-root .cc-stats { background-color: #E8F1FA !important; padding: 72px 32px !important; }
+.cc-root .cc-stats-inner { max-width: 1180px !important; margin: 0 auto !important; display: grid !important; grid-template-columns: 40% 60% !important; gap: 48px !important; align-items: center !important; }
+.cc-root .cc-stats-image { width: 100% !important; aspect-ratio: 1/1 !important; background: #D9E2EC !important; border-radius: 12px !important; position: relative !important; }
+.cc-root .cc-stats-image::after { content: '[ PRODUCT CLOSE-UP IMAGE — Detailed shot of product, square 1:1 ]' !important; position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; color: #5A6B82 !important; font-family: 'Inter', sans-serif !important; font-size: 14px !important; text-align: center !important; padding: 0 20px !important; }
+.cc-root .cc-stats-content { display: flex !important; flex-direction: column !important; gap: 16px !important; }
+.cc-root .cc-stats-headline { font-family: 'Inter', sans-serif !important; font-size: 28px !important; font-weight: 700 !important; color: #1A2B4A !important; margin: 0 !important; line-height: 1.2 !important; }
+.cc-root .cc-stats-body { font-family: 'Inter', sans-serif !important; font-size: 16px !important; font-weight: 400 !important; color: #5A6B82 !important; margin: 0 !important; line-height: 1.5 !important; }
+.cc-root .cc-stats-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 16px !important; margin-top: 16px !important; }
+.cc-root .cc-stats-card { background: #FFFFFF !important; padding: 24px !important; border-radius: 12px !important; box-shadow: 0 2px 12px rgba(26, 43, 74, 0.08) !important; display: flex !important; flex-direction: column !important; gap: 8px !important; align-items: flex-start !important; }
+.cc-root .cc-stats-icon { width: 40px !important; height: 40px !important; border-radius: 50% !important; background: #E8F1FA !important; color: #2B7FD9 !important; display: flex !important; align-items: center !important; justify-content: center !important; font-family: 'Inter', sans-serif !important; font-size: 18px !important; font-weight: 700 !important; }
+.cc-root .cc-stats-number { font-family: 'Inter', sans-serif !important; font-size: 22px !important; font-weight: 700 !important; color: #2B7FD9 !important; margin: 0 !important; }
+.cc-root .cc-stats-label { font-family: 'Inter', sans-serif !important; font-size: 14px !important; font-weight: 500 !important; color: #1A2B4A !important; margin: 0 !important; }
+
+.cc-root .cc-trust { background-color: #FFFFFF !important; padding: 72px 32px !important; }
+.cc-root .cc-trust-inner { max-width: 1180px !important; margin: 0 auto !important; display: flex !important; flex-direction: column !important; gap: 16px !important; align-items: center !important; }
+.cc-root .cc-trust-headline { font-family: 'Inter', sans-serif !important; font-size: 28px !important; font-weight: 700 !important; color: #1A2B4A !important; margin: 0 !important; text-align: center !important; line-height: 1.2 !important; }
+.cc-root .cc-trust-sub { font-family: 'Inter', sans-serif !important; font-size: 16px !important; font-weight: 400 !important; color: #5A6B82 !important; margin: 0 !important; text-align: center !important; max-width: 640px !important; line-height: 1.5 !important; }
+.cc-root .cc-trust-row { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 32px !important; width: 100% !important; margin-top: 32px !important; }
+.cc-root .cc-trust-item { display: flex !important; flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 12px !important; }
+.cc-root .cc-trust-icon { width: 56px !important; height: 56px !important; border-radius: 50% !important; background: #E8F1FA !important; color: #2B7FD9 !important; display: flex !important; align-items: center !important; justify-content: center !important; font-family: 'Inter', sans-serif !important; font-size: 22px !important; font-weight: 700 !important; }
+.cc-root .cc-trust-title { font-family: 'Inter', sans-serif !important; font-size: 16px !important; font-weight: 700 !important; color: #1A2B4A !important; margin: 0 !important; }
+.cc-root .cc-trust-desc { font-family: 'Inter', sans-serif !important; font-size: 14px !important; font-weight: 400 !important; color: #5A6B82 !important; margin: 0 !important; line-height: 1.4 !important; }
+
+.cc-root .cc-logos { background-color: #FFFFFF !important; padding: 56px 32px !important; }
+.cc-root .cc-logos-inner { max-width: 1180px !important; margin: 0 auto !important; display: flex !important; flex-direction: column !important; gap: 32px !important; align-items: center !important; }
+.cc-root .cc-logos-headline { font-family: 'Inter', sans-serif !important; font-size: 22px !important; font-weight: 700 !important; color: #1A2B4A !important; margin: 0 !important; text-align: center !important; }
+.cc-root .cc-logos-row { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 32px !important; width: 100% !important; }
+.cc-root .cc-logos-item { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 8px !important; }
+.cc-root .cc-logos-img { width: 140px !important; height: 60px !important; background: #E8F1FA !important; border-radius: 8px !important; filter: grayscale(100%) !important; position: relative !important; }
+.cc-root .cc-logos-img::after { content: '[ LOGO ]' !important; position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; color: #5A6B82 !important; font-family: 'Inter', sans-serif !important; font-size: 12px !important; }
+.cc-root .cc-logos-caption { font-family: 'Inter', sans-serif !important; font-size: 12px !important; font-weight: 400 !important; color: #5A6B82 !important; margin: 0 !important; text-align: center !important; }
+
+.cc-root .cc-testimonials { background-color: #2B7FD9 !important; padding: 72px 32px !important; }
+.cc-root .cc-testimonials-inner { max-width: 1180px !important; margin: 0 auto !important; display: flex !important; flex-direction: column !important; gap: 32px !important; align-items: center !important; }
+.cc-root .cc-testimonials-eyebrow { font-family: 'Inter', sans-serif !important; font-size: 12px !important; font-weight: 600 !important; color: rgba(255,255,255,0.7) !important; margin: 0 !important; text-align: center !important; text-transform: uppercase !important; letter-spacing: 1.5px !important; }
+.cc-root .cc-testimonials-grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 16px !important; width: 100% !important; }
+.cc-root .cc-testimonials-card { display: flex !important; flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 12px !important; padding: 16px !important; }
+.cc-root .cc-testimonials-avatar { width: 120px !important; height: 120px !important; border-radius: 50% !important; background: #1E5FA8 !important; position: relative !important; }
+.cc-root .cc-testimonials-avatar::after { content: '[ DOCTOR PHOTO ]' !important; position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; color: #FFFFFF !important; font-family: 'Inter', sans-serif !important; font-size: 12px !important; }
+.cc-root .cc-testimonials-name { font-family: 'Inter', sans-serif !important; font-size: 18px !important; font-weight: 700 !important; color: #FFFFFF !important; margin: 0 !important; }
+.cc-root .cc-testimonials-specialty { font-family: 'Inter', sans-serif !important; font-size: 14px !important; font-weight: 400 !important; color: rgba(255,255,255,0.7) !important; margin: 0 !important; }
+.cc-root .cc-testimonials-quote { font-family: 'Inter', sans-serif !important; font-size: 16px !important; font-weight: 400 !important; color: #FFFFFF !important; margin: 0 !important; line-height: 1.5 !important; }
+.cc-root .cc-testimonials-stars { font-family: 'Inter', sans-serif !important; font-size: 14px !important; color: #FFFFFF !important; letter-spacing: 2px !important; }
+
+.cc-root .cc-faq { background-color: #FFFFFF !important; padding: 72px 32px !important; }
+.cc-root .cc-faq-inner { max-width: 1180px !important; margin: 0 auto !important; display: grid !important; grid-template-columns: 40% 60% !important; gap: 48px !important; align-items: start !important; }
+.cc-root .cc-faq-left { display: flex !important; flex-direction: column !important; gap: 24px !important; }
+.cc-root .cc-faq-image-wrap { position: relative !important; width: 100% !important; }
+.cc-root .cc-faq-image { width: 100% !important; aspect-ratio: 3/4 !important; background: #E8F1FA !important; border-radius: 12px !important; position: relative !important; }
+.cc-root .cc-faq-image::after { content: '[ DOCTOR WITH PRODUCT IMAGE — Professional shot, portrait 3:4 ]' !important; position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; color: #5A6B82 !important; font-family: 'Inter', sans-serif !important; font-size: 14px !important; text-align: center !important; padding: 0 20px !important; }
+.cc-root .cc-faq-badge { position: absolute !important; top: 16px !important; right: 16px !important; width: 88px !important; height: 88px !important; border-radius: 50% !important; background: #2B7FD9 !important; color: #FFFFFF !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; font-family: 'Inter', sans-serif !important; font-size: 12px !important; font-weight: 700 !important; padding: 8px !important; box-shadow: 0 2px 6px rgba(43, 127, 217, 0.25) !important; }
+.cc-root .cc-faq-headline { font-family: 'Inter', sans-serif !important; font-size: 28px !important; font-weight: 700 !important; color: #1A2B4A !important; margin: 0 !important; text-transform: uppercase !important; letter-spacing: 1px !important; }
+.cc-root .cc-faq-list { display: flex !important; flex-direction: column !important; }
+.cc-root .cc-faq-item { border-bottom: 1px solid #D9E2EC !important; padding: 20px 0 !important; }
+.cc-root .cc-faq-q { display: flex !important; justify-content: space-between !important; align-items: center !important; gap: 16px !important; font-family: 'Inter', sans-serif !important; font-size: 16px !important; font-weight: 500 !important; color: #1A2B4A !important; }
+.cc-root .cc-faq-chevron { color: #2B7FD9 !important; font-size: 18px !important; font-weight: 700 !important; }
+.cc-root .cc-faq-a { font-family: 'Inter', sans-serif !important; font-size: 16px !important; font-weight: 400 !important; color: #5A6B82 !important; margin: 12px 0 0 0 !important; line-height: 1.5 !important; }
+
+@media (max-width: 900px) {
+  .cc-root .cc-stats-inner { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .cc-root .cc-trust-row { grid-template-columns: repeat(2, 1fr) !important; }
+  .cc-root .cc-logos-row { grid-template-columns: repeat(2, 1fr) !important; }
+  .cc-root .cc-testimonials-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .cc-root .cc-faq-inner { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .cc-root .cc-stats-headline, .cc-root .cc-trust-headline, .cc-root .cc-faq-headline { font-size: 24px !important; }
+}
+
+@media (max-width: 540px) {
+  .cc-root .cc-stats, .cc-root .cc-trust, .cc-root .cc-testimonials, .cc-root .cc-faq { padding: 48px 20px !important; }
+  .cc-root .cc-logos { padding: 40px 20px !important; }
+  .cc-root .cc-stats-grid { grid-template-columns: 1fr !important; }
+  .cc-root .cc-trust-row { grid-template-columns: 1fr !important; }
+  .cc-root .cc-logos-row { grid-template-columns: 1fr !important; }
+  .cc-root .cc-testimonials-grid { grid-template-columns: 1fr !important; }
+  .cc-root .cc-stats-headline, .cc-root .cc-trust-headline, .cc-root .cc-faq-headline { font-size: 22px !important; }
+  .cc-root .cc-logos-headline { font-size: 18px !important; }
+}
+
+/* ===== Engineer 2 styles ===== */
+.cc-root .cc-guarantee { background-color: #E8F1FA !important; padding: 72px 32px !important; }
+.cc-root .cc-guarantee-inner { max-width: 1180px !important; margin: 0 auto !important; display: flex !important; justify-content: center !important; }
+.cc-root .cc-guarantee-card { background-color: #FFFFFF !important; border-radius: 12px !important; padding: 40px !important; box-shadow: 0 2px 12px rgba(26, 43, 74, 0.08) !important; max-width: 880px !important; width: 100% !important; display: grid !important; grid-template-columns: 30% 70% !important; gap: 32px !important; align-items: center !important; }
+.cc-root .cc-guarantee-badge { width: 120px !important; height: 120px !important; border-radius: 50% !important; background-color: #2B7FD9 !important; margin: 0 auto !important; position: relative !important; }
+.cc-root .cc-guarantee-badge::after { content: '[ BADGE ICON — Shield or doctor figure illustration, white line-art on accent circle ]' !important; position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; color: #FFFFFF !important; font-family: 'Inter', sans-serif !important; font-size: 10px !important; text-align: center !important; width: 100px !important; line-height: 1.3 !important; }
+.cc-root .cc-guarantee-content { display: flex !important; flex-direction: column !important; gap: 16px !important; }
+.cc-root .cc-guarantee-headline { font-family: 'Inter', sans-serif !important; font-size: 22px !important; font-weight: 700 !important; color: #1A2B4A !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; margin: 0 !important; }
+.cc-root .cc-guarantee-body { font-family: 'Inter', sans-serif !important; font-size: 16px !important; font-weight: 400 !important; color: #5A6B82 !important; line-height: 1.6 !important; margin: 0 !important; }
+.cc-root .cc-guarantee-link { color: #2B7FD9 !important; font-family: 'Inter', sans-serif !important; font-size: 16px !important; font-weight: 700 !important; text-decoration: underline !important; }
+
+.cc-root .cc-trust-strip { background-color: #FFFFFF !important; padding: 56px 32px !important; }
+.cc-root .cc-trust-strip-inner { max-width: 1180px !important; margin: 0 auto !important; display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 0 !important; }
+.cc-root .cc-trust-strip-block { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 12px !important; padding: 16px 24px !important; border-right: 1px solid #D9E2EC !important; text-align: center !important; }
+.cc-root .cc-trust-strip-block:last-child { border-right: none !important; }
+.cc-root .cc-trust-strip-icon { width: 40px !important; height: 40px !important; background-color: transparent !important; position: relative !important; border: 2px solid #2B7FD9 !important; border-radius: 50% !important; }
+.cc-root .cc-trust-strip-icon::after { content: '[ ICON ]' !important; position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; color: #2B7FD9 !important; font-family: 'Inter', sans-serif !important; font-size: 8px !important; }
+.cc-root .cc-trust-strip-title { font-family: 'Inter', sans-serif !important; font-size: 16px !important; font-weight: 700 !important; color: #1A2B4A !important; margin: 0 !important; }
+.cc-root .cc-trust-strip-desc { font-family: 'Inter', sans-serif !important; font-size: 14px !important; font-weight: 400 !important; color: #5A6B82 !important; margin: 0 !important; line-height: 1.4 !important; }
+
+.cc-root .cc-newsletter { background-color: #E8F1FA !important; padding: 72px 32px !important; }
+.cc-root .cc-newsletter-inner { max-width: 1180px !important; margin: 0 auto !important; display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 48px !important; align-items: start !important; }
+.cc-root .cc-newsletter-left { display: flex !important; flex-direction: column !important; gap: 16px !important; }
+.cc-root .cc-newsletter-logo { font-family: 'Inter', sans-serif !important; font-size: 22px !important; font-weight: 700 !important; color: #1A2B4A !important; margin: 0 !important; }
+.cc-root .cc-newsletter-tagline { font-family: 'Inter', sans-serif !important; font-size: 16px !important; font-weight: 400 !important; color: #5A6B82 !important; margin: 0 !important; line-height: 1.5 !important; }
+.cc-root .cc-newsletter-payments { display: flex !important; gap: 12px !important; margin-top: 8px !important; }
+.cc-root .cc-newsletter-payment { width: 48px !important; height: 32px !important; background-color: #FFFFFF !important; border: 1px solid #D9E2EC !important; border-radius: 4px !important; position: relative !important; }
+.cc-root .cc-newsletter-payment::after { content: '[ PAY ]' !important; position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; color: #5A6B82 !important; font-family: 'Inter', sans-serif !important; font-size: 9px !important; }
+.cc-root .cc-newsletter-right { display: flex !important; flex-direction: column !important; gap: 16px !important; }
+.cc-root .cc-newsletter-eyebrow { font-family: 'Inter', sans-serif !important; font-size: 12px !important; font-weight: 700 !important; color: #1A2B4A !important; text-transform: uppercase !important; letter-spacing: 1.5px !important; margin: 0 !important; }
+.cc-root .cc-newsletter-links { display: flex !important; flex-direction: column !important; gap: 8px !important; list-style: none !important; padding: 0 !important; margin: 0 !important; }
+.cc-root .cc-newsletter-links a { font-family: 'Inter', sans-serif !important; font-size: 14px !important; font-weight: 400 !important; color: #5A6B82 !important; text-decoration: none !important; }
+.cc-root .cc-newsletter-form { display: flex !important; gap: 8px !important; margin-top: 8px !important; }
+.cc-root .cc-newsletter-input { flex: 1 !important; padding: 12px 16px !important; border: 1px solid #D9E2EC !important; border-radius: 8px !important; font-family: 'Inter', sans-serif !important; font-size: 16px !important; color: #1A2B4A !important; background-color: #FFFFFF !important; }
+.cc-root .cc-newsletter-btn { background-color: #2B7FD9 !important; color: #FFFFFF !important; padding: 12px 24px !important; font-family: 'Inter', sans-serif !important; font-size: 16px !important; font-weight: 700 !important; border-radius: 8px !important; text-decoration: none !important; border: none !important; cursor: pointer !important; display: inline-block !important; box-shadow: 0 2px 6px rgba(43, 127, 217, 0.25) !important; }
+
+.cc-root .cc-footer { background-color: #FFFFFF !important; border-top: 1px solid #D9E2EC !important; padding: 32px 32px !important; }
+.cc-root .cc-footer-inner { max-width: 1180px !important; margin: 0 auto !important; display: grid !important; grid-template-columns: 1fr 1fr 1fr !important; gap: 24px !important; align-items: center !important; }
+.cc-root .cc-footer-copy { font-family: 'Inter', sans-serif !important; font-size: 12px !important; font-weight: 400 !important; color: #5A6B82 !important; margin: 0 !important; text-align: left !important; }
+.cc-root .cc-footer-links { display: flex !important; justify-content: center !important; align-items: center !important; gap: 8px !important; flex-wrap: wrap !important; }
+.cc-root .cc-footer-links a { font-family: 'Inter', sans-serif !important; font-size: 12px !important; font-weight: 400 !important; color: #5A6B82 !important; text-decoration: none !important; }
+.cc-root .cc-footer-dot { color: #5A6B82 !important; font-size: 12px !important; }
+.cc-root .cc-footer-payments { display: flex !important; justify-content: flex-end !important; gap: 8px !important; align-items: center !important; }
+.cc-root .cc-footer-payment { width: 48px !important; height: 32px !important; background-color: #F5F5F5 !important; border: 1px solid #D9E2EC !important; border-radius: 4px !important; position: relative !important; filter: grayscale(100%) !important; }
+.cc-root .cc-footer-payment::after { content: '[ PAY ]' !important; position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; color: #5A6B82 !important; font-family: 'Inter', sans-serif !important; font-size: 9px !important; }
+
+@media (max-width: 900px) {
+  .cc-root .cc-guarantee-card { grid-template-columns: 1fr !important; text-align: center !important; padding: 32px !important; }
+  .cc-root .cc-guarantee-headline { font-size: 20px !important; }
+  .cc-root .cc-trust-strip-inner { grid-template-columns: repeat(2, 1fr) !important; }
+  .cc-root .cc-trust-strip-block:nth-child(2) { border-right: none !important; }
+  .cc-root .cc-trust-strip-block { border-bottom: 1px solid #D9E2EC !important; }
+  .cc-root .cc-trust-strip-block:nth-last-child(-n+2) { border-bottom: none !important; }
+  .cc-root .cc-newsletter-inner { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .cc-root .cc-footer-inner { grid-template-columns: 1fr !important; gap: 16px !important; }
+  .cc-root .cc-footer-copy { text-align: center !important; }
+  .cc-root .cc-footer-payments { justify-content: center !important; }
+}
+
+@media (max-width: 540px) {
+  .cc-root .cc-guarantee { padding: 48px 20px !important; }
+  .cc-root .cc-guarantee-card { padding: 24px !important; }
+  .cc-root .cc-guarantee-badge { width: 96px !important; height: 96px !important; }
+  .cc-root .cc-trust-strip { padding: 40px 20px !important; }
+  .cc-root .cc-trust-strip-inner { grid-template-columns: 1fr !important; }
+  .cc-root .cc-trust-strip-block { border-right: none !important; border-bottom: 1px solid #D9E2EC !important; }
+  .cc-root .cc-trust-strip-block:last-child { border-bottom: none !important; }
+  .cc-root .cc-newsletter { padding: 48px 20px !important; }
+  .cc-root .cc-newsletter-form { flex-direction: column !important; }
+  .cc-root .cc-newsletter-btn { width: 100% !important; text-align: center !important; }
+  .cc-root .cc-footer { padding: 24px 20px !important; }
+}
+  
+
+/* ===== Shopify integration ===== */
+.cc-root { width: 100%; overflow: hidden; }
+.cc-root *, .cc-root *::before, .cc-root *::after { box-sizing: border-box; }
+.cc-root .is-hidden { display: none !important; }
+.cc-root .cc-hero-image.has-image::after,
+.cc-root .cc-hero-thumb::after,
+.cc-root .cc-ba-image.has-image::after,
+.cc-root .cc-feat-image.has-image::after,
+.cc-root .cc-stats-image.has-image::after,
+.cc-root .cc-faq-image.has-image::after { display: none !important; }
+.cc-root .cc-main-product-image,
+.cc-root .cc-hero-image img,
+.cc-root .cc-ba-image img,
+.cc-root .cc-feat-image img,
+.cc-root .cc-stats-image img,
+.cc-root .cc-faq-image img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; border-radius: inherit !important; }
+.cc-root .cc-hero-thumb { padding: 0 !important; overflow: hidden !important; cursor: pointer !important; background: #fff !important; }
+.cc-root .cc-hero-thumb img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; }
+.cc-root .cc-hero-thumb.is-active { border: 2px solid #2B7FD9 !important; }
+.cc-root .cc-product-form { display: flex !important; flex-direction: column !important; gap: 14px !important; margin-top: 8px !important; }
+.cc-root .cc-product-controls { display: grid !important; grid-template-columns: minmax(0, 1fr) 110px !important; gap: 12px !important; }
+.cc-root .cc-field { display: flex !important; flex-direction: column !important; gap: 6px !important; }
+.cc-root .cc-field label { font-family: 'Inter', sans-serif !important; font-size: 14px !important; font-weight: 600 !important; color: #1A2B4A !important; }
+.cc-root .cc-select, .cc-root .cc-qty { width: 100% !important; min-height: 48px !important; border: 1px solid #D9E2EC !important; border-radius: 8px !important; padding: 10px 12px !important; background: #FFFFFF !important; color: #1A2B4A !important; font-family: 'Inter', sans-serif !important; font-size: 15px !important; }
+.cc-root .cc-hero-cta:disabled { opacity: .55 !important; cursor: not-allowed !important; }
+.cc-root .shopify-payment-button { margin-top: 0 !important; }
+.cc-root .shopify-payment-button__button { border-radius: 8px !important; min-height: 50px !important; }
+.cc-root .cc-faq-q { cursor: pointer !important; }
+.cc-root .cc-faq-a[hidden] { display: none !important; }
+@media (max-width: 540px) {
+  .cc-root .cc-product-controls { grid-template-columns: 1fr !important; }
+}
+
+</style>
+
+<div id="CCRoot-{{ section.id }}" class="cc-root">
+<!-- ===== Engineer 0 sections ===== -->
+<!-- SECTION: hero_with_buy_box -->
+<section class="cc-hero">
+  <div class="cc-hero-inner">
+    <div class="cc-hero-gallery" data-cc-gallery>
+      {% assign cc_main_image = current_variant.featured_image | default: product.featured_image %}
+      <div class="cc-hero-image{% if cc_main_image != blank %} has-image{% endif %}">
+        {% if cc_main_image != blank %}
+          {{ cc_main_image | image_url: width: 1400 | image_tag: id: cc_main_image_id, class: 'cc-main-product-image', loading: 'eager', widths: '480, 720, 960, 1200, 1400', sizes: '(min-width: 901px) 50vw, 100vw', alt: product.title }}
+        {% endif %}
+      </div>
+      {% if product.images.size > 1 %}
+        <div class="cc-hero-thumbs" role="list" aria-label="Product images">
+          {% for image in product.images limit: 5 %}
+            <button
+              type="button"
+              class="cc-hero-thumb{% if image.id == cc_main_image.id %} is-active{% endif %}"
+              data-cc-thumb
+              data-image-url="{{ image | image_url: width: 1400 }}"
+              data-image-alt="{{ image.alt | default: product.title | escape }}"
+              aria-label="View image {{ forloop.index }}"
+            >
+              {{ image | image_url: width: 180 | image_tag: loading: 'lazy', alt: product.title }}
+            </button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    <div class="cc-hero-info">
+      <p class="cc-hero-breadcrumb">{{ product.vendor }}{% if product.type != blank %} · {{ product.type }}{% endif %}</p>
+      <h1 class="cc-hero-headline">{{ product.title }}</h1>
+      <div class="cc-hero-rating">
+        <span class="cc-hero-stars">★★★★★</span>
+        <p class="cc-hero-rating-text">{{ section.settings.rating_text }}</p>
+      </div>
+      <div class="cc-hero-price-row" data-cc-price-row>
+        <p class="cc-hero-price-old{% unless current_variant.compare_at_price > current_variant.price %} is-hidden{% endunless %}" data-cc-compare-price>
+          {% if current_variant.compare_at_price > current_variant.price %}{{ current_variant.compare_at_price | money }}{% endif %}
+        </p>
+        <p class="cc-hero-price-new" data-cc-price>{{ current_variant.price | money }}</p>
+        {% assign cc_discount = 0 %}
+        {% if current_variant.compare_at_price > current_variant.price %}
+          {% assign cc_saved = current_variant.compare_at_price | minus: current_variant.price %}
+          {% assign cc_discount = cc_saved | times: 100.0 | divided_by: current_variant.compare_at_price | round %}
+        {% endif %}
+        <span class="cc-hero-discount{% if cc_discount == 0 %} is-hidden{% endif %}" data-cc-discount>{% if cc_discount > 0 %}-{{ cc_discount }}%{% endif %}</span>
+      </div>
+      <ul class="cc-hero-benefits">
+        {% if section.settings.benefit_1 != blank %}<li class="cc-hero-benefit">{{ section.settings.benefit_1 }}</li>{% endif %}
+        {% if section.settings.benefit_2 != blank %}<li class="cc-hero-benefit">{{ section.settings.benefit_2 }}</li>{% endif %}
+        {% if section.settings.benefit_3 != blank %}<li class="cc-hero-benefit">{{ section.settings.benefit_3 }}</li>{% endif %}
+      </ul>
+      {% if section.settings.show_countdown %}
+      <div class="cc-hero-countdown">
+        <div class="cc-hero-cd-box">
+          <span class="cc-hero-cd-num">{{ section.settings.cd_days }}</span>
+          <p class="cc-hero-cd-label">Days</p>
+        </div>
+        <div class="cc-hero-cd-box">
+          <span class="cc-hero-cd-num">{{ section.settings.cd_hours }}</span>
+          <p class="cc-hero-cd-label">Hrs</p>
+        </div>
+        <div class="cc-hero-cd-box">
+          <span class="cc-hero-cd-num">{{ section.settings.cd_minutes }}</span>
+          <p class="cc-hero-cd-label">Min</p>
+        </div>
+        <div class="cc-hero-cd-box">
+          <span class="cc-hero-cd-num">{{ section.settings.cd_seconds }}</span>
+          <p class="cc-hero-cd-label">Sec</p>
+        </div>
+      </div>
+      {% endif %}
+      {% form 'product', product, id: product_form_id, class: 'cc-product-form', novalidate: 'novalidate' %}
+        <div class="cc-product-controls">
+          {% if product.has_only_default_variant %}
+            <input type="hidden" name="id" value="{{ current_variant.id }}">
+          {% else %}
+            <div class="cc-field">
+              <label for="CCVariant-{{ section.id }}">{{ section.settings.variant_label }}</label>
+              <select id="CCVariant-{{ section.id }}" name="id" class="cc-select" data-cc-variant-select>
+                {% for variant in product.variants %}
+                  <option
+                    value="{{ variant.id }}"
+                    data-price="{{ variant.price | money | escape }}"
+                    data-compare="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | escape }}{% endif %}"
+                    data-price-raw="{{ variant.price }}"
+                    data-compare-raw="{{ variant.compare_at_price | default: 0 }}"
+                    data-available="{{ variant.available }}"
+                    data-image="{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 1400 }}{% endif %}"
+                    data-image-alt="{% if variant.featured_image %}{{ variant.featured_image.alt | default: product.title | escape }}{% endif %}"
+                    {% if variant.id == current_variant.id %}selected{% endif %}
+                    {% unless variant.available %}disabled{% endunless %}
+                  >
+                    {{ variant.title }}{% unless variant.available %} — Sold out{% endunless %}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          {% endif %}
+          <div class="cc-field cc-qty-field">
+            <label for="CCQuantity-{{ section.id }}">{{ section.settings.qty_label }}</label>
+            <input id="CCQuantity-{{ section.id }}" class="cc-qty" type="number" name="quantity" value="1" min="1" inputmode="numeric">
+          </div>
+        </div>
+        <button type="submit" class="cc-hero-cta" data-cc-submit {% unless current_variant.available %}disabled{% endunless %}>
+          <span data-cc-submit-text>{% if current_variant.available %}{{ section.settings.cart_text }}{% else %}{{ section.settings.sold_text }}{% endif %}</span>
+        </button>
+        {{ form | payment_button }}
+      {% endform %}
+      <div class="cc-hero-pay">
+        <span class="cc-hero-pay-icon">VISA</span>
+        <span class="cc-hero-pay-icon">MC</span>
+        <span class="cc-hero-pay-icon">PAY</span>
+      </div>
+      <div class="cc-hero-trust">
+        <p class="cc-hero-trust-row">{{ section.settings.trust_1 }}</p>
+        <p class="cc-hero-trust-row">{{ section.settings.trust_2 }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: before_after -->
+<section class="cc-ba">
+  <div class="cc-ba-inner">
+    <div class="cc-ba-images">
+      <div class="cc-ba-image cc-ba-image-before{% if section.settings.before_img != blank %} has-image{% endif %} ">
+        {% if section.settings.before_img != blank %}
+          {{ section.settings.before_img | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '480, 720, 960, 1200', sizes: '(min-width: 901px) 50vw, 100vw', alt: product.title }}
+        {% endif %}
+      </div>
+      <div class="cc-ba-image cc-ba-image-after{% if section.settings.after_img != blank %} has-image{% endif %} ">
+        {% if section.settings.after_img != blank %}
+          {{ section.settings.after_img | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '480, 720, 960, 1200', sizes: '(min-width: 901px) 50vw, 100vw', alt: product.title }}
+        {% endif %}
+      </div>
+    </div>
+    <div class="cc-ba-content">
+      <p class="cc-ba-eyebrow">[ BEFORE / AFTER ]</p>
+      <h2 class="cc-ba-headline">[ Section headline — 6-9 words, e.g., 'See the difference within days' ]</h2>
+      <p class="cc-ba-body">[ Body paragraph — 2-3 sentences explaining the transformation users experience, the clinical mechanism, and the typical timeframe for visible results. ~40-60 words. ]</p>
+      <ul class="cc-ba-list">
+        <li class="cc-ba-item">[ Bullet — Clinically observed improvement ~6-12 words ]</li>
+        <li class="cc-ba-item">[ Bullet — Measurable comfort gain ~6-12 words ]</li>
+        <li class="cc-ba-item">[ Bullet — Reduced pain markers ~6-12 words ]</li>
+        <li class="cc-ba-item">[ Bullet — Long-term postural benefit ~6-12 words ]</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: ingredient_feature_grid -->
+<section class="cc-feat">
+  <div class="cc-feat-inner">
+    <div class="cc-feat-content">
+      <p class="cc-feat-eyebrow">[ ENDORSED BY EXPERTS ]</p>
+      <h2 class="cc-feat-headline">[ Section headline — 7-10 words, e.g., 'The ultimate comfort recommended by health professionals' ]</h2>
+      <p class="cc-feat-body">[ Body paragraph — 2 sentences describing the clinical foundation of the product and the professionals who endorse it. ~40-60 words. ]</p>
+      <p class="cc-feat-sub">[ Highlight phrase — 5-8 words emphasizing key clinical benefit ]</p>
+      <p class="cc-feat-body">[ Supporting paragraph — 2 sentences expanding on the mechanism, materials, or methodology that delivers the result. ~30-50 words. ]</p>
+    </div>
+    <div class="cc-feat-image{% if section.settings.feature_img != blank %} has-image{% endif %} ">
+        {% if section.settings.feature_img != blank %}
+          {{ section.settings.feature_img | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '480, 720, 960, 1200', sizes: '(min-width: 901px) 50vw, 100vw', alt: product.title }}
+        {% endif %}
+      </div>
+  </div>
+</section>
+
+<!-- ===== Engineer 1 sections ===== -->
+<!-- SECTION: stats_proof -->
+<section class="cc-stats">
+  <div class="cc-stats-inner">
+    <div class="cc-stats-image{% if section.settings.stats_img != blank %} has-image{% endif %} ">
+        {% if section.settings.stats_img != blank %}
+          {{ section.settings.stats_img | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '480, 720, 960, 1200', sizes: '(min-width: 901px) 50vw, 100vw', alt: product.title }}
+        {% endif %}
+      </div>
+    <div class="cc-stats-content">
+      <h2 class="cc-stats-headline">[ HEADLINE — Imagine a life without pain, ~5-8 words ]</h2>
+      <p class="cc-stats-body">[ Body intro — 2 sentences explaining the clinical benefit and outcome for the patient. ~30-50 words. ]</p>
+      <div class="cc-stats-grid">
+        <div class="cc-stats-card">
+          <div class="cc-stats-icon">✓</div>
+          <div class="cc-stats-number">[ 95% ]</div>
+          <div class="cc-stats-label">[ Stat label ~3-5 words ]</div>
+        </div>
+        <div class="cc-stats-card">
+          <div class="cc-stats-icon">★</div>
+          <div class="cc-stats-number">[ 4.9/5 ]</div>
+          <div class="cc-stats-label">[ Stat label ~3-5 words ]</div>
+        </div>
+        <div class="cc-stats-card">
+          <div class="cc-stats-icon">+</div>
+          <div class="cc-stats-number">[ 10K+ ]</div>
+          <div class="cc-stats-label">[ Stat label ~3-5 words ]</div>
+        </div>
+        <div class="cc-stats-card">
+          <div class="cc-stats-icon">♥</div>
+          <div class="cc-stats-number">[ 98% ]</div>
+          <div class="cc-stats-label">[ Stat label ~3-5 words ]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: trust_features -->
+<section class="cc-trust">
+  <div class="cc-trust-inner">
+    <h2 class="cc-trust-headline">[ HEADLINE — Order now and transform your daily comfort, ~5-8 words ]</h2>
+    <p class="cc-trust-sub">[ Subheadline — 1 sentence reinforcing the trust and quality promise. ~15-25 words. ]</p>
+    <div class="cc-trust-row">
+      <div class="cc-trust-item">
+        <div class="cc-trust-icon">✓</div>
+        <div class="cc-trust-title">[ Feature title ]</div>
+        <div class="cc-trust-desc">[ Short feature description ~6-10 words ]</div>
+      </div>
+      <div class="cc-trust-item">
+        <div class="cc-trust-icon">🛡</div>
+        <div class="cc-trust-title">[ Feature title ]</div>
+        <div class="cc-trust-desc">[ Short feature description ~6-10 words ]</div>
+      </div>
+      <div class="cc-trust-item">
+        <div class="cc-trust-icon">↻</div>
+        <div class="cc-trust-title">[ Feature title ]</div>
+        <div class="cc-trust-desc">[ Short feature description ~6-10 words ]</div>
+      </div>
+      <div class="cc-trust-item">
+        <div class="cc-trust-icon">⚡</div>
+        <div class="cc-trust-title">[ Feature title ]</div>
+        <div class="cc-trust-desc">[ Short feature description ~6-10 words ]</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: social_proof_strip -->
+<section class="cc-logos">
+  <div class="cc-logos-inner">
+    <h3 class="cc-logos-headline">[ EYEBROW — These health professionals speak about us, ~6-9 words ]</h3>
+    <div class="cc-logos-row">
+      <div class="cc-logos-item">
+        <div class="cc-logos-img"></div>
+        <div class="cc-logos-caption">[ Organization name ]</div>
+      </div>
+      <div class="cc-logos-item">
+        <div class="cc-logos-img"></div>
+        <div class="cc-logos-caption">[ Organization name ]</div>
+      </div>
+      <div class="cc-logos-item">
+        <div class="cc-logos-img"></div>
+        <div class="cc-logos-caption">[ Organization name ]</div>
+      </div>
+      <div class="cc-logos-item">
+        <div class="cc-logos-img"></div>
+        <div class="cc-logos-caption">[ Organization name ]</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: testimonials_grid -->
+<section class="cc-testimonials">
+  <div class="cc-testimonials-inner">
+    <div class="cc-testimonials-eyebrow">[ EYEBROW — Trusted by doctors ]</div>
+    <div class="cc-testimonials-grid">
+      <div class="cc-testimonials-card">
+        <div class="cc-testimonials-avatar"></div>
+        <div class="cc-testimonials-name">[ Dr. Garnier ]</div>
+        <div class="cc-testimonials-specialty">[ Specialty ]</div>
+        <div class="cc-testimonials-quote">[ Testimonial quote — 2 sentences from the doctor about clinical results and patient outcomes. ~30-50 words. ]</div>
+        <div class="cc-testimonials-stars">★ ★ ★ ★ ★</div>
+      </div>
+      <div class="cc-testimonials-card">
+        <div class="cc-testimonials-avatar"></div>
+        <div class="cc-testimonials-name">[ Dr. Lambert ]</div>
+        <div class="cc-testimonials-specialty">[ Specialty ]</div>
+        <div class="cc-testimonials-quote">[ Testimonial quote — 2 sentences from the doctor about clinical results and patient outcomes. ~30-50 words. ]</div>
+        <div class="cc-testimonials-stars">★ ★ ★ ★ ★</div>
+      </div>
+      <div class="cc-testimonials-card">
+        <div class="cc-testimonials-avatar"></div>
+        <div class="cc-testimonials-name">[ Dr. Moreau ]</div>
+        <div class="cc-testimonials-specialty">[ Specialty ]</div>
+        <div class="cc-testimonials-quote">[ Testimonial quote — 2 sentences from the doctor about clinical results and patient outcomes. ~30-50 words. ]</div>
+        <div class="cc-testimonials-stars">★ ★ ★ ★ ★</div>
+      </div>
+      <div class="cc-testimonials-card">
+        <div class="cc-testimonials-avatar"></div>
+        <div class="cc-testimonials-name">[ Dr. Petit ]</div>
+        <div class="cc-testimonials-specialty">[ Specialty ]</div>
+        <div class="cc-testimonials-quote">[ Testimonial quote — 2 sentences from the doctor about clinical results and patient outcomes. ~30-50 words. ]</div>
+        <div class="cc-testimonials-stars">★ ★ ★ ★ ★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: faq_accordion -->
+<section class="cc-faq">
+  <div class="cc-faq-inner">
+    <div class="cc-faq-left">
+      <div class="cc-faq-image-wrap">
+        <div class="cc-faq-image{% if section.settings.faq_img != blank %} has-image{% endif %} ">
+        {% if section.settings.faq_img != blank %}
+          {{ section.settings.faq_img | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '480, 720, 960, 1200', sizes: '(min-width: 901px) 50vw, 100vw', alt: product.title }}
+        {% endif %}
+      </div>
+        <div class="cc-faq-badge">[ BADGE TEXT ]</div>
+      </div>
+      <h2 class="cc-faq-headline">[ FREQUENT QUESTIONS ]</h2>
+    </div>
+    <div class="cc-faq-list">
+      <div class="cc-faq-item">
+        <div class="cc-faq-q"><span>[ Question 1 — clinical or product question, ~8-14 words ]</span><span class="cc-faq-chevron">−</span></div>
+        <p class="cc-faq-a">[ Answer — 2-3 sentences clearly addressing the question with reassuring clinical tone. ~40-60 words. ]</p>
+      </div>
+      <div class="cc-faq-item">
+        <div class="cc-faq-q"><span>[ Question 2 — about usage or duration, ~8-14 words ]</span><span class="cc-faq-chevron">+</span></div>
+        <p class="cc-faq-a">[ Answer 2 — Add the answer for this question here. ]</p>
+      </div>
+      <div class="cc-faq-item">
+        <div class="cc-faq-q"><span>[ Question 3 — about results or efficacy, ~8-14 words ]</span><span class="cc-faq-chevron">+</span></div>
+        <p class="cc-faq-a">[ Answer 3 — Add the answer for this question here. ]</p>
+      </div>
+      <div class="cc-faq-item">
+        <div class="cc-faq-q"><span>[ Question 4 — about shipping or returns, ~8-14 words ]</span><span class="cc-faq-chevron">+</span></div>
+        <p class="cc-faq-a">[ Answer 4 — Add the answer for this question here. ]</p>
+      </div>
+      <div class="cc-faq-item">
+        <div class="cc-faq-q"><span>[ Question 5 — about safety or contraindications, ~8-14 words ]</span><span class="cc-faq-chevron">+</span></div>
+        <p class="cc-faq-a">[ Answer 5 — Add the answer for this question here. ]</p>
+      </div>
+      <div class="cc-faq-item">
+        <div class="cc-faq-q"><span>[ Question 6 — about guarantee or warranty, ~8-14 words ]</span><span class="cc-faq-chevron">+</span></div>
+        <p class="cc-faq-a">[ Answer 6 — Add the answer for this question here. ]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Engineer 2 sections ===== -->
+<!-- SECTION: money_back_guarantee -->
+<section class="cc-guarantee">
+  <div class="cc-guarantee-inner">
+    <div class="cc-guarantee-card">
+      <div class="cc-guarantee-badge"></div>
+      <div class="cc-guarantee-content">
+        <h2 class="cc-guarantee-headline">[ HEADLINE — Authenticity guarantee, 3-5 words uppercase ]</h2>
+        <p class="cc-guarantee-body">[ Body paragraph — 3-4 sentences (~70-110 words) explaining the authenticity guarantee. Warn about counterfeit products sold by unauthorized resellers. Emphasize that genuine product is only available from official channels. Direct customer to verify purchase via the <a href="{{ product.url }}" target="_blank" rel="noopener" class="cc-guarantee-link">[ link text — official website ~3-5 words ]</a> to ensure authenticity and full warranty coverage. ]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: trust_features -->
+<section class="cc-trust-strip">
+  <div class="cc-trust-strip-inner">
+    <div class="cc-trust-strip-block">
+      <div class="cc-trust-strip-icon"></div>
+      <p class="cc-trust-strip-title">[ Feature 1 title — 2-4 words ]</p>
+      <p class="cc-trust-strip-desc">[ Short description — 5-8 words ]</p>
+    </div>
+    <div class="cc-trust-strip-block">
+      <div class="cc-trust-strip-icon"></div>
+      <p class="cc-trust-strip-title">[ Feature 2 title — 2-4 words ]</p>
+      <p class="cc-trust-strip-desc">[ Short description — 5-8 words ]</p>
+    </div>
+    <div class="cc-trust-strip-block">
+      <div class="cc-trust-strip-icon"></div>
+      <p class="cc-trust-strip-title">[ Feature 3 title — 2-4 words ]</p>
+      <p class="cc-trust-strip-desc">[ Short description — 5-8 words ]</p>
+    </div>
+    <div class="cc-trust-strip-block">
+      <div class="cc-trust-strip-icon"></div>
+      <p class="cc-trust-strip-title">[ Feature 4 title — 2-4 words ]</p>
+      <p class="cc-trust-strip-desc">[ Short description — 5-8 words ]</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<script>
+  (() => {
+    const root = document.getElementById('CCRoot-{{ section.id }}');
+    if (!root || root.dataset.ccReady === 'true') return;
+    root.dataset.ccReady = 'true';
+
+    const mainImage = root.querySelector('.cc-main-product-image');
+    root.querySelectorAll('[data-cc-thumb]').forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        if (mainImage) {
+          mainImage.src = thumb.dataset.imageUrl;
+          mainImage.alt = thumb.dataset.imageAlt || mainImage.alt;
+        }
+        root.querySelectorAll('[data-cc-thumb]').forEach((item) => item.classList.remove('is-active'));
+        thumb.classList.add('is-active');
+      });
+    });
+
+    const variantSelect = root.querySelector('[data-cc-variant-select]');
+    const price = root.querySelector('[data-cc-price]');
+    const comparePrice = root.querySelector('[data-cc-compare-price]');
+    const discount = root.querySelector('[data-cc-discount]');
+    const submit = root.querySelector('[data-cc-submit]');
+    const submitText = root.querySelector('[data-cc-submit-text]');
+
+    const updateVariant = () => {
+      if (!variantSelect) return;
+      const option = variantSelect.options[variantSelect.selectedIndex];
+      const rawPrice = Number(option.dataset.priceRaw || 0);
+      const rawCompare = Number(option.dataset.compareRaw || 0);
+      const available = option.dataset.available === 'true';
+
+      if (price) price.textContent = option.dataset.price || '';
+      if (comparePrice) {
+        comparePrice.textContent = rawCompare > rawPrice ? (option.dataset.compare || '') : '';
+        comparePrice.classList.toggle('is-hidden', !(rawCompare > rawPrice));
+      }
+      if (discount) {
+        const percent = rawCompare > rawPrice ? Math.round(((rawCompare - rawPrice) / rawCompare) * 100) : 0;
+        discount.textContent = percent ? `-${percent}%` : '';
+        discount.classList.toggle('is-hidden', !percent);
+      }
+      if (submit) submit.disabled = !available;
+      if (submitText) submitText.textContent = available ? {{ section.settings.cart_text | json }} : {{ section.settings.sold_text | json }};
+      if (mainImage && option.dataset.image) {
+        mainImage.src = option.dataset.image;
+        if (option.dataset.imageAlt) mainImage.alt = option.dataset.imageAlt;
+      }
+    };
+
+    variantSelect?.addEventListener('change', updateVariant);
+
+    root.querySelectorAll('.cc-faq-item').forEach((item, index) => {
+      const question = item.querySelector('.cc-faq-q');
+      const answer = item.querySelector('.cc-faq-a');
+      const chevron = item.querySelector('.cc-faq-chevron');
+      if (!question || !answer) return;
+      if (index > 0) answer.hidden = true;
+      question.setAttribute('role', 'button');
+      question.setAttribute('tabindex', '0');
+      const toggle = () => {
+        answer.hidden = !answer.hidden;
+        if (chevron) chevron.textContent = answer.hidden ? '+' : '−';
+      };
+      question.addEventListener('click', toggle);
+      question.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggle();
+        }
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Vital Care product page",
+  "tag": "section",
+  "class": "vital-care-product-page",
+  "limit": 1,
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product hero"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "2,847 verified reviews"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1",
+      "default": "Cushioned support for daily comfort"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2",
+      "default": "Breathable materials for everyday wear"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3",
+      "default": "Flexible fit that moves naturally"
+    },
+    {
+      "type": "text",
+      "id": "variant_label",
+      "label": "Variant label",
+      "default": "Choose an option"
+    },
+    {
+      "type": "text",
+      "id": "qty_label",
+      "label": "Quantity label",
+      "default": "Quantity"
+    },
+    {
+      "type": "text",
+      "id": "cart_text",
+      "label": "Add to cart text",
+      "default": "Add to cart"
+    },
+    {
+      "type": "text",
+      "id": "sold_text",
+      "label": "Sold out text",
+      "default": "Sold out"
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Trust line 1",
+      "default": "Tracked delivery available"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Trust line 2",
+      "default": "Secure checkout and easy returns"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_countdown",
+      "label": "Show countdown",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Countdown display"
+    },
+    {
+      "type": "text",
+      "id": "cd_days",
+      "label": "Days",
+      "default": "02"
+    },
+    {
+      "type": "text",
+      "id": "cd_hours",
+      "label": "Hours",
+      "default": "14"
+    },
+    {
+      "type": "text",
+      "id": "cd_minutes",
+      "label": "Minutes",
+      "default": "37"
+    },
+    {
+      "type": "text",
+      "id": "cd_seconds",
+      "label": "Seconds",
+      "default": "52"
+    },
+    {
+      "type": "header",
+      "content": "Content images"
+    },
+    {
+      "type": "image_picker",
+      "id": "before_img",
+      "label": "Before image"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_img",
+      "label": "After image"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_img",
+      "label": "Feature image"
+    },
+    {
+      "type": "image_picker",
+      "id": "stats_img",
+      "label": "Statistics image"
+    },
+    {
+      "type": "image_picker",
+      "id": "faq_img",
+      "label": "FAQ image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vital Care product page"
+    }
+  ]
+}
+{% endschema %}

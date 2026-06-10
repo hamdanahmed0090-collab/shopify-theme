@@ -1,0 +1,31 @@
+<div class="lp-experts-wrapper" style="background-color: #3b719f; color: white; padding: 50px 0; text-align: center;">
+  <h2>{{ section.settings.title }}</h2>
+  <div class="lp-expert-grid" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto;">
+    {% for block in section.blocks %}
+      <div class="lp-expert-card" style="flex: 1; min-width: 200px;">
+        {% comment %} <img src="{{ block.settings.image | img_url: '300x300', crop: 'center' }}" style="border-radius: 50%; border: 4px solid white; width: 180px; height: 180px; object-fit: cover;"> {% endcomment %}
+        <h3 style="margin-top: 15px; font-size: 1.5rem;">{{ block.settings.name }}</h3>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LP - Medical Experts",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Heading", "default": "Ces professionnels de santé parlent de nous" }
+  ],
+  "blocks": [
+    {
+      "type": "expert",
+      "name": "Expert",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "name", "label": "Name" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "LP - Medical Experts" }]
+}
+{% endschema %}

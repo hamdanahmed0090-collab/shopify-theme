@@ -1,0 +1,182 @@
+/* ============================================================
+   media-section.css
+   Place in: assets/media-section.css
+   ============================================================ */
+
+/* Container */
+.media-section__container--boxed {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+.media-section__container--full {
+  width: 100%;
+  padding-inline: 20px;
+}
+
+/* Header */
+.media-section__header {
+  margin-bottom: 40px;
+}
+
+.media-section__heading {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+
+.media-section__subheading {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+/* Grid layouts */
+.media-section__grid {
+  display: grid;
+  width: 100%;
+}
+
+.media-section__grid--1-col  { grid-template-columns: 1fr; }
+.media-section__grid--2-col  { grid-template-columns: repeat(2, 1fr); }
+.media-section__grid--3-col  { grid-template-columns: repeat(3, 1fr); }
+.media-section__grid--4-col  { grid-template-columns: repeat(4, 1fr); }
+
+/* Masonry via columns trick */
+.media-section__grid--masonry {
+  display: block;
+  column-count: 3;
+  column-gap: 16px;
+}
+.media-section__grid--masonry .media-section__item {
+  break-inside: avoid;
+  margin-bottom: 16px;
+  display: block;
+}
+
+/* Item */
+.media-section__item {
+  position: relative;
+  background: #f5f5f5;
+}
+
+/* Media wrapper — enforces aspect ratio */
+.media-section__media-wrapper {
+  display: block;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.media-section__media-wrapper--iframe {
+  position: relative;
+  width: 100%;
+}
+
+.media-section__media-wrapper--iframe iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* When aspect-ratio is a proper value, the iframe wrapper needs height 0 + padding trick as fallback */
+@supports not (aspect-ratio: 16/9) {
+  .media-section__media-wrapper--iframe {
+    padding-top: 56.25%;
+    height: 0;
+  }
+}
+
+/* Image & Video tags */
+.media-section__media--image,
+.media-section__media--video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.media-section__media--external-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Caption */
+.media-section__caption {
+  padding: 10px 12px 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Placeholder */
+.media-section__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #e9e9e9;
+  width: 100%;
+  gap: 12px;
+}
+
+.media-section__placeholder-svg {
+  width: 60px;
+  height: 60px;
+  opacity: 0.4;
+}
+
+.media-section__placeholder-label {
+  font-size: 13px;
+  color: #888;
+  text-align: center;
+  padding: 0 16px;
+  margin: 0;
+}
+
+/* Error message */
+.media-section__error {
+  padding: 20px;
+  font-size: 14px;
+  color: #c0392b;
+  background: #fdecea;
+  border-radius: 4px;
+  margin: 0;
+}
+
+/* Empty state (editor only) */
+.media-section__empty-state {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 48px 24px;
+  text-align: center;
+  color: #888;
+  font-size: 15px;
+  background: #fafafa;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media screen and (max-width: 1024px) {
+  .media-section__grid--4-col { grid-template-columns: repeat(2, 1fr); }
+  .media-section__grid--3-col { grid-template-columns: repeat(2, 1fr); }
+  .media-section__grid--masonry { column-count: 2; }
+}
+
+@media screen and (max-width: 640px) {
+  .media-section__grid--2-col,
+  .media-section__grid--3-col,
+  .media-section__grid--4-col { grid-template-columns: 1fr; }
+  .media-section__grid--masonry { column-count: 1; }
+
+  .media-section__heading { font-size: 24px; }
+
+  .media-section__container--boxed,
+  .media-section__container--full { padding-inline: 16px; }
+}

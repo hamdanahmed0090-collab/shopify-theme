@@ -1,0 +1,37 @@
+<div class="lp-benefit-split" style="display: flex; flex-wrap: wrap; align-items: center; padding: 50px 5%; gap: 40px;">
+  <div style="flex: 1; min-width: 300px;">
+    <img src="{{ section.settings.image | img_url: '800x' }}" style="width: 100%; border-radius: 10px;">
+  </div>
+  <div style="flex: 1; min-width: 300px;">
+    <h2 style="font-size: 32px;">{{ section.settings.title }}</h2>
+    <ul style="list-style: none; padding: 0;">
+      {% for block in section.blocks %}
+        <li style="margin-bottom: 15px; display: flex; align-items: flex-start; gap: 10px;">
+          <span style="color: green; font-weight: bold;">✅</span>
+          <span><strong>{{ block.settings.bold_text }}</strong> {{ block.settings.reg_text }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LP - Benefit List",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title" },
+    { "type": "image_picker", "id": "image", "label": "Main Image" }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "text", "id": "bold_text", "label": "Bold Text" },
+        { "type": "text", "id": "reg_text", "label": "Regular Text" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "LP - Benefit List" }]
+}
+{% endschema %}
