@@ -1,0 +1,46 @@
+{
+  "sections": {
+    "main": {
+      "type": "vital-care-main-product",
+      "settings": {}
+    },
+    "image_text_1": {
+      "type": "vital-care-image-text",
+      "settings": {}
+    },
+    "benefits": {
+      "type": "vital-care-benefits",
+      "settings": {}
+    },
+    "proof": {
+      "type": "vital-care-professional-proof",
+      "settings": {}
+    },
+    "doctors": {
+      "type": "vital-care-doctors",
+      "settings": {}
+    },
+    "faq": {
+      "type": "vital-care-faq",
+      "settings": {}
+    },
+    "guarantee": {
+      "type": "vital-care-guarantee",
+      "settings": {}
+    },
+    "trust": {
+      "type": "vital-care-trust-icons",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "image_text_1",
+    "benefits",
+    "proof",
+    "doctors",
+    "faq",
+    "guarantee",
+    "trust"
+  ]
+}
