@@ -1,5 +1,371 @@
-{{ product.title }}
-{{ product.media }}
-{{ product.variants }}
-{{ product.selected_or_first_available_variant.price | money }}
-{{ product.selected_or_first_available_variant.compare_at_price | money }}
+{% comment %}
+  File: sections/vc-main-product.liquid
+  Purpose: Main product area inspired by the reference layout, rebuilt with your Shopify product data.
+{% endcomment %}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+{% style %}
+  .vc-product-page, .vc-product-page * { box-sizing: border-box; }
+  .vc-product-page { --vc-blue: #008cce; --vc-dark: #111827; --vc-muted: #667085; --vc-border: #dde7ef; --vc-soft: #f4f8fb; --vc-green: #26a269; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--vc-dark); }
+  .vc-announcement { background: var(--vc-blue); color: #fff; text-align: center; padding: 9px 16px; font-size: 13px; font-weight: 700; line-height: 1.35; }
+  .vc-section { padding: 48px 20px; }
+  .vc-container { max-width: 1120px; margin: 0 auto; }
+  .vc-main-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 0.9fr); gap: 42px; align-items: start; }
+  .vc-gallery { position: sticky; top: 24px; }
+  .vc-main-image { position: relative; width: 100%; aspect-ratio: 1/1; background: #fff; border: 1px solid var(--vc-border); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 14px rgba(16,24,40,.08); }
+  .vc-main-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .vc-main-image-placeholder { width: 100%; height: 100%; display: grid; place-items: center; color: var(--vc-muted); background: var(--vc-soft); padding: 25px; text-align: center; }
+  .vc-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 9px; margin-top: 12px; }
+  .vc-thumb { padding: 0; border: 1px solid var(--vc-border); border-radius: 8px; background: #fff; aspect-ratio: 1/1; overflow: hidden; cursor: pointer; opacity: .62; transition: .2s ease; }
+  .vc-thumb.is-active, .vc-thumb:hover { opacity: 1; border-color: var(--vc-blue); transform: translateY(-1px); }
+  .vc-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .vc-buy-box { background: #fff; border: 1px solid var(--vc-border); border-radius: 12px; padding: 22px; box-shadow: 0 2px 16px rgba(16,24,40,.08); }
+  .vc-rating { display: flex; gap: 8px; align-items: center; color: var(--vc-blue); font-size: 14px; font-weight: 700; margin-bottom: 10px; flex-wrap: wrap; }
+  .vc-stars { letter-spacing: 2px; }
+  .vc-rating span:last-child { color: var(--vc-muted); font-weight: 600; letter-spacing: 0; }
+  .vc-title { margin: 0 0 10px; font-size: clamp(25px, 3vw, 34px); line-height: 1.15; font-weight: 800; color: #111827; }
+  .vc-price-row { display: flex; align-items: baseline; gap: 12px; margin: 14px 0; flex-wrap: wrap; }
+  .vc-price-current { color: #e03131; font-size: 27px; font-weight: 900; }
+  .vc-price-compare { color: var(--vc-muted); text-decoration: line-through; font-size: 17px; }
+  .vc-save-badge { background: #ffe8e8; color: #e03131; border-radius: 999px; padding: 5px 10px; font-size: 12px; font-weight: 800; }
+  .vc-badges { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 16px; }
+  .vc-badge { background: #e8f6ff; color: #006fa9; border-radius: 999px; padding: 7px 10px; font-size: 12px; font-weight: 800; }
+  .vc-option { margin: 16px 0; }
+  .vc-option-title { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 8px; font-size: 14px; font-weight: 800; color: #111827; }
+  .vc-option-values { display: flex; flex-wrap: wrap; gap: 8px; }
+  .vc-option-value input { position: absolute; opacity: 0; pointer-events: none; }
+  .vc-option-value span { min-width: 44px; height: 42px; padding: 0 13px; border: 1px solid var(--vc-border); border-radius: 7px; background: #fff; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; font-weight: 700; transition: .18s ease; }
+  .vc-option-value input:checked + span { border-color: var(--vc-blue); background: #e8f6ff; color: #006fa9; box-shadow: 0 0 0 2px rgba(0,140,206,.12); }
+  .vc-qty-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0; }
+  .vc-qty-label { font-size: 14px; font-weight: 800; }
+  .vc-qty-control { display: flex; align-items: center; border: 1px solid var(--vc-border); border-radius: 8px; overflow: hidden; height: 42px; background: #fff; }
+  .vc-qty-btn { width: 42px; height: 42px; border: 0; background: #fff; cursor: pointer; font-size: 18px; font-weight: 900; color: #111827; }
+  .vc-qty-input { width: 48px; height: 42px; border: 0; border-left: 1px solid var(--vc-border); border-right: 1px solid var(--vc-border); text-align: center; font-weight: 800; color: #111827; -moz-appearance: textfield; }
+  .vc-qty-input::-webkit-outer-spin-button, .vc-qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .vc-atc { width: 100%; min-height: 58px; border: 0; border-radius: 9px; background: var(--vc-blue); color: #fff; font-size: 18px; font-weight: 900; cursor: pointer; box-shadow: 0 8px 18px rgba(0,140,206,.28); transition: .2s ease; }
+  .vc-atc:hover { transform: translateY(-1px); filter: brightness(.95); }
+  .vc-atc:disabled { background: #98a2b3; cursor: not-allowed; box-shadow: none; transform: none; }
+  .vc-payment-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 14px 0 10px; }
+  .vc-pay-pill { min-width: 48px; height: 28px; padding: 0 8px; border: 1px solid var(--vc-border); border-radius: 5px; background: #f7fafc; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: #344054; }
+  .vc-trust-list { display: grid; gap: 8px; margin-top: 14px; }
+  .vc-trust-item { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: #344054; line-height: 1.45; }
+  .vc-check { color: var(--vc-green); font-weight: 900; }
+  .vc-description { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--vc-border); color: #475467; font-size: 14px; line-height: 1.6; }
+  .vc-sticky-mobile { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; background: #fff; border-top: 1px solid var(--vc-border); padding: 10px 14px; box-shadow: 0 -5px 20px rgba(16,24,40,.12); }
+  .vc-sticky-mobile a { display: block; background: var(--vc-blue); color: #fff; text-align: center; padding: 13px 15px; border-radius: 8px; font-weight: 900; text-decoration: none; }
+  .vc-content-section { padding: 58px 20px; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .vc-content-container { max-width: 1120px; margin: 0 auto; }
+  .vc-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; align-items: center; }
+  .vc-content-image { width: 100%; aspect-ratio: 1/1; background: #eaf4fb; border-radius: 12px; overflow: hidden; display: grid; place-items: center; color: #667085; text-align: center; padding: 20px; }
+  .vc-content-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .vc-kicker { color: #008cce; text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 900; margin-bottom: 8px; }
+  .vc-heading { margin: 0 0 12px; font-size: clamp(24px, 3vw, 34px); line-height: 1.2; font-weight: 900; color: #111827; }
+  .vc-text { color: #475467; line-height: 1.65; font-size: 15px; }
+  .vc-check-list { display: grid; gap: 10px; margin-top: 18px; }
+  .vc-check-line { display: flex; gap: 10px; align-items: flex-start; font-weight: 700; color: #111827; }
+  .vc-card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .vc-card { background: #fff; border: 1px solid #dde7ef; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 2px 12px rgba(16,24,40,.06); }
+  .vc-card-icon { width: 58px; height: 58px; border-radius: 50%; background: #e8f6ff; color: #008cce; display: grid; place-items: center; margin: 0 auto 12px; font-size: 24px; font-weight: 900; }
+  .vc-card-title { font-size: 15px; font-weight: 900; margin: 0 0 6px; color: #111827; }
+  .vc-card-text { font-size: 13px; line-height: 1.5; color: #667085; margin: 0; }
+  .vc-blue-band { background: #008cce; color: #fff; }
+  .vc-blue-band .vc-heading, .vc-blue-band .vc-text { color: #fff; }
+  .vc-logo-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: center; }
+  .vc-logo-card { min-height: 110px; background: #fff; border: 1px solid #dde7ef; border-radius: 12px; display: grid; place-items: center; text-align: center; padding: 16px; font-weight: 900; color: #008cce; }
+  .vc-logo-card img { max-width: 100%; max-height: 75px; object-fit: contain; }
+  .vc-faq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 40px; align-items: start; }
+  .vc-faq-item { border-bottom: 1px solid #dde7ef; }
+  .vc-faq-btn { width: 100%; border: 0; background: transparent; display: flex; justify-content: space-between; gap: 15px; padding: 18px 0; text-align: left; font-size: 15px; font-weight: 900; color: #111827; cursor: pointer; }
+  .vc-faq-answer { display: none; padding: 0 0 18px; color: #475467; line-height: 1.6; font-size: 14px; }
+  .vc-faq-item.is-open .vc-faq-answer { display: block; }
+  .vc-guarantee-card { background: #eff9ef; border: 2px dashed #34a853; border-radius: 12px; padding: 26px; display: grid; grid-template-columns: 190px 1fr; gap: 28px; align-items: center; }
+  .vc-guarantee-card .vc-content-image { aspect-ratio: 1/1; background: #dff4df; }
+  .vc-center { text-align: center; max-width: 800px; margin: 0 auto 32px; }
+  .vc-cta-strip { background: #f4f8fb; text-align: center; }
+  .vc-cta-btn { display: inline-flex; align-items: center; justify-content: center; margin-top: 18px; padding: 14px 24px; border-radius: 8px; background: #008cce; color: #fff; text-decoration: none; font-weight: 900; }
+  @media (max-width: 900px) {
+    .vc-main-grid, .vc-two-col, .vc-faq-grid, .vc-guarantee-card { grid-template-columns: 1fr; }
+    .vc-gallery { position: static; }
+    .vc-card-grid, .vc-logo-row { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .vc-section, .vc-content-section { padding: 32px 15px; }
+    .vc-buy-box { padding: 16px; }
+    .vc-thumbs { grid-template-columns: repeat(4, 1fr); }
+    .vc-card-grid, .vc-logo-row { grid-template-columns: 1fr; }
+    .vc-sticky-mobile { display: block; }
+    body { padding-bottom: 68px; }
+  }
+{% endstyle %}
+
+<div class="vc-product-page" data-vc-main-product data-currency="{{ cart.currency.iso_code }}" data-locale="{{ request.locale.iso_code | default: 'en' }}">
+  {% if section.settings.announcement_text != blank %}
+    <div class="vc-announcement">{{ section.settings.announcement_text }}</div>
+  {% endif %}
+
+  <section class="vc-section" id="vc-product-top">
+    <div class="vc-container">
+      <div class="vc-main-grid">
+        <div class="vc-gallery">
+          <div class="vc-main-image" data-vc-main-image>
+            {% if product.featured_media %}
+              {% assign featured_alt = product.featured_media.alt | default: product.title %}
+              {{ product.featured_media.preview_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: featured_alt }}
+            {% else %}
+              <div class="vc-main-image-placeholder">Upload product images to show the gallery here.</div>
+            {% endif %}
+          </div>
+
+          {% if product.media.size > 1 %}
+            <div class="vc-thumbs" aria-label="Product images">
+              {% for media in product.media limit: 20 %}
+                <button type="button" class="vc-thumb {% if forloop.first %}is-active{% endif %}" data-vc-thumb data-media-id="{{ media.id }}" aria-label="Show image {{ forloop.index }}">
+                  {% assign thumb_alt = media.alt | default: product.title %}
+                  {{ media.preview_image | image_url: width: 180 | image_tag: loading: 'lazy', alt: thumb_alt }}
+                </button>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="vc-buy-box">
+          <div class="vc-rating">
+            <span class="vc-stars">★★★★★</span>
+            <span>{{ section.settings.rating_text }}</span>
+          </div>
+
+          <h1 class="vc-title">{{ product.title }}</h1>
+
+          <div class="vc-price-row">
+            <span class="vc-price-current" data-vc-price>{{ current_variant.price | money }}</span>
+            <span class="vc-price-compare" data-vc-compare {% unless current_variant.compare_at_price > current_variant.price %}style="display:none"{% endunless %}>
+              {{ current_variant.compare_at_price | money }}
+            </span>
+            <span class="vc-save-badge" data-vc-save {% unless current_variant.compare_at_price > current_variant.price %}style="display:none"{% endunless %}>
+              Save
+            </span>
+          </div>
+
+          <div class="vc-badges">
+            {% if section.settings.badge_1 != blank %}<span class="vc-badge">{{ section.settings.badge_1 }}</span>{% endif %}
+            {% if section.settings.badge_2 != blank %}<span class="vc-badge">{{ section.settings.badge_2 }}</span>{% endif %}
+            {% if section.settings.badge_3 != blank %}<span class="vc-badge">{{ section.settings.badge_3 }}</span>{% endif %}
+          </div>
+
+          {% form 'product', product, id: 'VcProductForm', class: 'vc-product-form' %}
+            <input type="hidden" name="id" value="{{ current_variant.id }}" data-vc-variant-id>
+
+            {% unless product.has_only_default_variant %}
+              {% for option in product.options_with_values %}
+                <div class="vc-option" data-option-position="{{ option.position }}">
+                  <div class="vc-option-title">
+                    <span>{{ option.name }}</span>
+                    <span data-vc-selected-option>{{ option.selected_value }}</span>
+                  </div>
+                  <div class="vc-option-values">
+                    {% for value in option.values %}
+                      <label class="vc-option-value">
+                        <input
+                          type="radio"
+                          name="options[{{ option.name | escape }}]"
+                          value="{{ value | escape }}"
+                          {% if option.selected_value == value %}checked{% endif %}
+                          data-vc-option-input
+                        >
+                        <span>{{ value }}</span>
+                      </label>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endfor %}
+            {% endunless %}
+
+            <div class="vc-qty-row">
+              <span class="vc-qty-label">Quantity</span>
+              <div class="vc-qty-control">
+                <button type="button" class="vc-qty-btn" data-vc-qty-minus>−</button>
+                <input class="vc-qty-input" type="number" name="quantity" min="1" value="1" data-vc-qty>
+                <button type="button" class="vc-qty-btn" data-vc-qty-plus>+</button>
+              </div>
+            </div>
+
+            <button type="submit" name="add" class="vc-atc" data-vc-atc {% unless current_variant.available %}disabled{% endunless %}>
+              {% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}
+            </button>
+
+            {% if section.settings.show_dynamic_checkout %}
+              {{ form | payment_button }}
+            {% endif %}
+          {% endform %}
+
+          <div class="vc-payment-row" aria-label="Payment methods">
+            <span class="vc-pay-pill">VISA</span>
+            <span class="vc-pay-pill">MC</span>
+            <span class="vc-pay-pill">AMEX</span>
+            <span class="vc-pay-pill">PayPal</span>
+            <span class="vc-pay-pill">Shop Pay</span>
+          </div>
+
+          <div class="vc-trust-list">
+            {% if section.settings.trust_1 != blank %}<div class="vc-trust-item"><span class="vc-check">✓</span><span>{{ section.settings.trust_1 }}</span></div>{% endif %}
+            {% if section.settings.trust_2 != blank %}<div class="vc-trust-item"><span class="vc-check">✓</span><span>{{ section.settings.trust_2 }}</span></div>{% endif %}
+            {% if section.settings.trust_3 != blank %}<div class="vc-trust-item"><span class="vc-check">✓</span><span>{{ section.settings.trust_3 }}</span></div>{% endif %}
+          </div>
+
+          {% if section.settings.show_description and product.description != blank %}
+            <div class="vc-description">{{ product.description | truncatewords: 70 }}</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="vc-sticky-mobile">
+    <a href="#vc-product-top">{{ section.settings.mobile_sticky_text }}</a>
+  </div>
+
+  <script type="application/json" data-vc-variants-json>
+    {{ product.variants | json }}
+  </script>
+</div>
+
+<script>
+(() => {
+  const section = document.querySelector('[data-vc-main-product]');
+  if (!section || section.dataset.initialized === 'true') return;
+  section.dataset.initialized = 'true';
+
+  const variantsNode = section.querySelector('[data-vc-variants-json]');
+  const variants = variantsNode ? JSON.parse(variantsNode.textContent) : [];
+  const currency = section.dataset.currency || 'USD';
+  const locale = section.dataset.locale || 'en';
+
+  const hiddenVariant = section.querySelector('[data-vc-variant-id]');
+  const priceEl = section.querySelector('[data-vc-price]');
+  const compareEl = section.querySelector('[data-vc-compare]');
+  const saveEl = section.querySelector('[data-vc-save]');
+  const atc = section.querySelector('[data-vc-atc]');
+  const mainImage = section.querySelector('[data-vc-main-image]');
+  const qty = section.querySelector('[data-vc-qty]');
+
+  const money = (cents) => {
+    try {
+      return new Intl.NumberFormat(locale, { style: 'currency', currency }).format((Number(cents) || 0) / 100);
+    } catch (e) {
+      return ((Number(cents) || 0) / 100).toFixed(2);
+    }
+  };
+
+  function getSelectedOptions() {
+    const groups = [...section.querySelectorAll('.vc-option')];
+    return groups.map(group => {
+      const checked = group.querySelector('input[type="radio"]:checked');
+      return checked ? checked.value : null;
+    });
+  }
+
+  function findSelectedVariant() {
+    const selected = getSelectedOptions();
+    if (!selected.length) return variants[0];
+    return variants.find(variant => variant.options.every((value, index) => value === selected[index]));
+  }
+
+  function updateLabels() {
+    section.querySelectorAll('.vc-option').forEach(group => {
+      const label = group.querySelector('[data-vc-selected-option]');
+      const checked = group.querySelector('input[type="radio"]:checked');
+      if (label && checked) label.textContent = checked.value;
+    });
+  }
+
+  function updateImage(variant) {
+    if (!variant || !variant.featured_media || !mainImage) return;
+    const thumb = section.querySelector(`[data-vc-thumb][data-media-id="${variant.featured_media.id}"]`);
+    if (thumb) thumb.click();
+  }
+
+  function updateVariant() {
+    updateLabels();
+    const variant = findSelectedVariant();
+    if (!variant) {
+      if (atc) {
+        atc.disabled = true;
+        atc.textContent = 'Unavailable';
+      }
+      return;
+    }
+
+    if (hiddenVariant) hiddenVariant.value = variant.id;
+    if (priceEl) priceEl.textContent = money(variant.price);
+
+    if (compareEl && saveEl && variant.compare_at_price && variant.compare_at_price > variant.price) {
+      compareEl.textContent = money(variant.compare_at_price);
+      compareEl.style.display = '';
+      const percent = Math.round(((variant.compare_at_price - variant.price) / variant.compare_at_price) * 100);
+      saveEl.textContent = `Save ${percent}%`;
+      saveEl.style.display = '';
+    } else {
+      if (compareEl) compareEl.style.display = 'none';
+      if (saveEl) saveEl.style.display = 'none';
+    }
+
+    if (atc) {
+      atc.disabled = !variant.available;
+      atc.textContent = variant.available ? 'Add to cart' : 'Sold out';
+    }
+
+    updateImage(variant);
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('variant', variant.id);
+    window.history.replaceState({}, '', url.toString());
+  }
+
+  section.querySelectorAll('[data-vc-option-input]').forEach(input => {
+    input.addEventListener('change', updateVariant);
+  });
+
+  section.querySelectorAll('[data-vc-thumb]').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const img = thumb.querySelector('img');
+      const activeImg = mainImage ? mainImage.querySelector('img') : null;
+      if (!img || !activeImg) return;
+      activeImg.src = img.src.replace(/width=\d+/, 'width=1200');
+      activeImg.srcset = '';
+      activeImg.alt = img.alt || '';
+      section.querySelectorAll('[data-vc-thumb]').forEach(t => t.classList.remove('is-active'));
+      thumb.classList.add('is-active');
+    });
+  });
+
+  section.querySelector('[data-vc-qty-minus]')?.addEventListener('click', () => {
+    qty.value = Math.max(1, Number(qty.value || 1) - 1);
+  });
+  section.querySelector('[data-vc-qty-plus]')?.addEventListener('click', () => {
+    qty.value = Math.max(1, Number(qty.value || 1) + 1);
+  });
+
+  updateVariant();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "VC main product",
+  "settings": [
+    { "type": "text", "id": "announcement_text", "label": "Top announcement text", "default": "Recommended by comfort-focused specialists and trusted by thousands of customers" },
+    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "4.8/5 based on verified customer reviews" },
+    { "type": "text", "id": "badge_1", "label": "Badge 1", "default": "Free shipping" },
+    { "type": "text", "id": "badge_2", "label": "Badge 2", "default": "30-day guarantee" },
+    { "type": "text", "id": "badge_3", "label": "Badge 3", "default": "Secure checkout" },
+    { "type": "text", "id": "trust_1", "label": "Trust point 1", "default": "Designed for daily comfort and support" },
+    { "type": "text", "id": "trust_2", "label": "Trust point 2", "default": "Easy returns within 30 days" },
+    { "type": "text", "id": "trust_3", "label": "Trust point 3", "default": "Encrypted secure payment" },
+    { "type": "checkbox", "id": "show_description", "label": "Show short product description", "default": true },
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show dynamic checkout button", "default": false },
+    { "type": "text", "id": "mobile_sticky_text", "label": "Mobile sticky button text", "default": "Choose options" }
+  ],
+  "presets": [{ "name": "VC main product" }]
+}
+{% endschema %}

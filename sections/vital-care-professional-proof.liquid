@@ -1,0 +1,49 @@
+{% comment %}File: sections/vc-professional-proof.liquid{% endcomment %}
+<section class="vc-content-section" style="background:#f4f8fb;">
+  <div class="vc-content-container">
+    <div class="vc-center">
+      <h2 class="vc-heading">{{ section.settings.heading }}</h2>
+      {% if section.settings.text != blank %}<p class="vc-text">{{ section.settings.text }}</p>{% endif %}
+    </div>
+
+    <div class="vc-logo-row">
+      {% for block in section.blocks %}
+        <div class="vc-logo-card" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | image_url: width: 400 | image_tag: loading: 'lazy', alt: block.settings.label }}
+          {% else %}
+            {{ block.settings.label }}
+          {% endif %}
+        </div>
+      {% else %}
+        <div class="vc-logo-card">Verified quality</div>
+        <div class="vc-logo-card">Secure checkout</div>
+        <div class="vc-logo-card">Fast shipping</div>
+        <div class="vc-logo-card">Easy returns</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "VC professional proof",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Trusted comfort-focused design" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Replace this section with real certifications, partner logos, press logos, or verified trust signals for your own brand." }
+  ],
+  "blocks": [
+    {
+      "type": "proof",
+      "name": "Proof logo/card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Logo image" },
+        { "type": "text", "id": "label", "label": "Fallback label", "default": "Verified quality" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "VC professional proof", "blocks": [{ "type": "proof" }, { "type": "proof" }, { "type": "proof" }, { "type": "proof" }] }
+  ]
+}
+{% endschema %}

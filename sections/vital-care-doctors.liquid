@@ -1,0 +1,57 @@
+{% comment %}File: sections/vc-doctors.liquid{% endcomment %}
+<section class="vc-content-section vc-blue-band">
+  <div class="vc-content-container">
+    <div class="vc-center">
+      <h2 class="vc-heading">{{ section.settings.heading }}</h2>
+      {% if section.settings.text != blank %}<p class="vc-text">{{ section.settings.text }}</p>{% endif %}
+    </div>
+
+    <div class="vc-card-grid">
+      {% for block in section.blocks %}
+        <div class="vc-card" {{ block.shopify_attributes }}>
+          <div class="vc-card-icon" style="overflow:hidden;background:#e8f6ff;">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 180 | image_tag: loading: 'lazy', alt: block.settings.name }}
+            {% else %}
+              ★
+            {% endif %}
+          </div>
+          <h3 class="vc-card-title">{{ block.settings.name }}</h3>
+          <p class="vc-card-text"><strong>{{ block.settings.role }}</strong></p>
+          <p class="vc-card-text">★★★★★</p>
+          <p class="vc-card-text">{{ block.settings.quote }}</p>
+        </div>
+      {% else %}
+        <div class="vc-card"><div class="vc-card-icon">★</div><h3 class="vc-card-title">Customer name</h3><p class="vc-card-text"><strong>Verified buyer</strong></p><p class="vc-card-text">★★★★★</p><p class="vc-card-text">Replace this with a real customer review.</p></div>
+        <div class="vc-card"><div class="vc-card-icon">★</div><h3 class="vc-card-title">Customer name</h3><p class="vc-card-text"><strong>Verified buyer</strong></p><p class="vc-card-text">★★★★★</p><p class="vc-card-text">Replace this with a real customer review.</p></div>
+        <div class="vc-card"><div class="vc-card-icon">★</div><h3 class="vc-card-title">Customer name</h3><p class="vc-card-text"><strong>Verified buyer</strong></p><p class="vc-card-text">★★★★★</p><p class="vc-card-text">Replace this with a real customer review.</p></div>
+        <div class="vc-card"><div class="vc-card-icon">★</div><h3 class="vc-card-title">Customer name</h3><p class="vc-card-text"><strong>Verified buyer</strong></p><p class="vc-card-text">★★★★★</p><p class="vc-card-text">Replace this with a real customer review.</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "VC testimonials",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What customers are saying" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Use real customer reviews or verified expert quotes. Do not use fake doctors or unsupported medical endorsements." }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Avatar/image" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Customer name" },
+        { "type": "text", "id": "role", "label": "Role", "default": "Verified buyer" },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "Replace this with a real review or verified endorsement." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "VC testimonials", "blocks": [{ "type": "testimonial" }, { "type": "testimonial" }, { "type": "testimonial" }, { "type": "testimonial" }] }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,48 @@
+{% comment %}File: sections/vc-benefit-icons.liquid{% endcomment %}
+<section class="vc-content-section" style="background:#fff;">
+  <div class="vc-content-container">
+    <div class="vc-center">
+      <h2 class="vc-heading">{{ section.settings.heading }}</h2>
+      {% if section.settings.text != blank %}<p class="vc-text">{{ section.settings.text }}</p>{% endif %}
+    </div>
+
+    <div class="vc-card-grid">
+      {% for block in section.blocks %}
+        <div class="vc-card" {{ block.shopify_attributes }}>
+          <div class="vc-card-icon">{{ block.settings.icon }}</div>
+          <h3 class="vc-card-title">{{ block.settings.title }}</h3>
+          <p class="vc-card-text">{{ block.settings.text }}</p>
+        </div>
+      {% else %}
+        <div class="vc-card"><div class="vc-card-icon">✓</div><h3 class="vc-card-title">Daily support</h3><p class="vc-card-text">Add your own benefit here.</p></div>
+        <div class="vc-card"><div class="vc-card-icon">✓</div><h3 class="vc-card-title">Soft comfort</h3><p class="vc-card-text">Add your own benefit here.</p></div>
+        <div class="vc-card"><div class="vc-card-icon">✓</div><h3 class="vc-card-title">Easy fit</h3><p class="vc-card-text">Add your own benefit here.</p></div>
+        <div class="vc-card"><div class="vc-card-icon">✓</div><h3 class="vc-card-title">Secure order</h3><p class="vc-card-text">Add your own benefit here.</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "VC benefit icons",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Imagine better comfort without changing your routine" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Highlight the four most important product benefits here." }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon text or emoji", "default": "✓" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Daily support" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Short product benefit description." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "VC benefit icons", "blocks": [{ "type": "benefit" }, { "type": "benefit" }, { "type": "benefit" }, { "type": "benefit" }] }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,78 @@
+{% comment %}File: sections/vc-faq.liquid{% endcomment %}
+<section class="vc-content-section" style="background:#fff;">
+  <div class="vc-content-container">
+    <div class="vc-faq-grid">
+      <div class="vc-content-image">
+        {% if section.settings.image != blank %}
+          {{ section.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: section.settings.heading }}
+        {% else %}
+          Add FAQ/support image here
+        {% endif %}
+      </div>
+
+      <div>
+        {% if section.settings.badge != blank %}<div class="vc-kicker">{{ section.settings.badge }}</div>{% endif %}
+        <h2 class="vc-heading">{{ section.settings.heading }}</h2>
+
+        <div class="vc-faq-list" data-vc-faq-list>
+          {% for block in section.blocks %}
+            <div class="vc-faq-item" {{ block.shopify_attributes }}>
+              <button type="button" class="vc-faq-btn">
+                <span>{{ block.settings.question }}</span>
+                <span>+</span>
+              </button>
+              <div class="vc-faq-answer">{{ block.settings.answer }}</div>
+            </div>
+          {% else %}
+            <div class="vc-faq-item is-open">
+              <button type="button" class="vc-faq-btn"><span>How do I choose the correct size?</span><span>+</span></button>
+              <div class="vc-faq-answer">Add your sizing guidance here.</div>
+            </div>
+            <div class="vc-faq-item">
+              <button type="button" class="vc-faq-btn"><span>How long does delivery take?</span><span>+</span></button>
+              <div class="vc-faq-answer">Add your shipping information here.</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(() => {
+  document.querySelectorAll('[data-vc-faq-list]').forEach(list => {
+    if (list.dataset.initialized === 'true') return;
+    list.dataset.initialized = 'true';
+    list.addEventListener('click', event => {
+      const btn = event.target.closest('.vc-faq-btn');
+      if (!btn) return;
+      btn.closest('.vc-faq-item').classList.toggle('is-open');
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "VC FAQ",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "badge", "label": "Small label", "default": "Support" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently asked questions" }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Add your question here?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Add your answer here.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "VC FAQ", "blocks": [{ "type": "faq" }, { "type": "faq" }, { "type": "faq" }, { "type": "faq" }, { "type": "faq" }] }
+  ]
+}
+{% endschema %}

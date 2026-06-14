@@ -1,0 +1,20 @@
+{% comment %}File: sections/vc-cta-strip.liquid{% endcomment %}
+<section class="vc-content-section vc-cta-strip">
+  <div class="vc-content-container">
+    <h2 class="vc-heading">{{ section.settings.heading }}</h2>
+    {% if section.settings.text != blank %}<p class="vc-text">{{ section.settings.text }}</p>{% endif %}
+    <a class="vc-cta-btn" href="#vc-product-top">{{ section.settings.button_text }}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "VC CTA strip",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Order today and feel the difference" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Limited stock available. Add your product to cart while the offer is active." },
+    { "type": "text", "id": "button_text", "label": "Button text", "default": "Order now" }
+  ],
+  "presets": [{ "name": "VC CTA strip" }]
+}
+{% endschema %}

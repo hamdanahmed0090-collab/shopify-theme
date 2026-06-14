@@ -1,0 +1,46 @@
+{% comment %}File: sections/vc-trust-icons.liquid{% endcomment %}
+<section class="vc-content-section" style="background:#fff;">
+  <div class="vc-content-container">
+    {% if section.settings.heading != blank %}
+      <div class="vc-center"><h2 class="vc-heading">{{ section.settings.heading }}</h2></div>
+    {% endif %}
+
+    <div class="vc-card-grid">
+      {% for block in section.blocks %}
+        <div class="vc-card" {{ block.shopify_attributes }}>
+          <div class="vc-card-icon">{{ block.settings.icon }}</div>
+          <h3 class="vc-card-title">{{ block.settings.title }}</h3>
+          <p class="vc-card-text">{{ block.settings.text }}</p>
+        </div>
+      {% else %}
+        <div class="vc-card"><div class="vc-card-icon">🚚</div><h3 class="vc-card-title">Fast shipping</h3><p class="vc-card-text">Add your delivery promise.</p></div>
+        <div class="vc-card"><div class="vc-card-icon">↩</div><h3 class="vc-card-title">Easy returns</h3><p class="vc-card-text">Add your return policy.</p></div>
+        <div class="vc-card"><div class="vc-card-icon">🔒</div><h3 class="vc-card-title">Secure payment</h3><p class="vc-card-text">Add your payment promise.</p></div>
+        <div class="vc-card"><div class="vc-card-icon">💬</div><h3 class="vc-card-title">Support</h3><p class="vc-card-text">Add your support promise.</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "VC trust icons",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop with confidence" }
+  ],
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "Trust item",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon text or emoji", "default": "✓" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Secure payment" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Short trust description." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "VC trust icons", "blocks": [{ "type": "trust" }, { "type": "trust" }, { "type": "trust" }, { "type": "trust" }] }
+  ]
+}
+{% endschema %}
