@@ -1,43 +1,96 @@
 {
   "sections": {
     "main": {
-      "type": "vital-care-main-product",
-      "settings": {}
+      "type": "vc-main-product",
+      "settings": {
+        "announcement_text": "Recommended by comfort-focused specialists and trusted by thousands of customers",
+        "rating_text": "4.8/5 based on verified customer reviews",
+        "badge_1": "Free shipping",
+        "badge_2": "30-day guarantee",
+        "badge_3": "Secure checkout",
+        "trust_1": "Designed for daily comfort and support",
+        "trust_2": "Easy returns within 30 days",
+        "trust_3": "Encrypted secure payment"
+      }
     },
     "image_text_1": {
-      "type": "vital-care-image-text",
-      "settings": {}
+      "type": "vc-image-text",
+      "settings": {
+        "subheading": "Daily comfort",
+        "heading": "Walk with more comfort every day",
+        "text": "<p>Use this section for your first conversion block. Add your own product image and explain the main comfort benefit in simple, benefit-focused language.</p>",
+        "layout": "image_left",
+        "background": "#f5f7f8"
+      }
+    },
+    "image_text_2": {
+      "type": "vc-image-text",
+      "settings": {
+        "subheading": "Smart support",
+        "heading": "Support where your customers need it most",
+        "text": "<p>Use this area for product construction, cushioning, fit, materials, or another practical reason why this product is useful.</p>",
+        "layout": "image_right",
+        "background": "#ffffff"
+      }
     },
     "benefits": {
-      "type": "vital-care-benefits",
-      "settings": {}
+      "type": "vc-benefit-icons",
+      "settings": {
+        "heading": "Imagine better comfort without changing your routine",
+        "text": "Highlight the four most important product benefits here."
+      }
     },
-    "proof": {
-      "type": "vital-care-professional-proof",
-      "settings": {}
+    "cta": {
+      "type": "vc-cta-strip",
+      "settings": {
+        "heading": "Order today and feel the difference",
+        "text": "Limited stock available. Add your product to cart while the offer is active.",
+        "button_text": "Order now"
+      }
+    },
+    "professional_proof": {
+      "type": "vc-professional-proof",
+      "settings": {
+        "heading": "Trusted comfort-focused design",
+        "text": "Replace this section with real certifications, partner logos, press logos, or verified trust signals for your own brand."
+      }
     },
     "doctors": {
-      "type": "vital-care-doctors",
-      "settings": {}
+      "type": "vc-doctors",
+      "settings": {
+        "heading": "What customers are saying",
+        "text": "Use real customer reviews or verified expert quotes. Do not use fake doctors or unsupported medical endorsements."
+      }
     },
     "faq": {
-      "type": "vital-care-faq",
-      "settings": {}
+      "type": "vc-faq",
+      "settings": {
+        "heading": "Frequently asked questions",
+        "badge": "Support"
+      }
     },
     "guarantee": {
-      "type": "vital-care-guarantee",
-      "settings": {}
+      "type": "vc-guarantee",
+      "settings": {
+        "heading": "Authenticity guarantee",
+        "warning_text": "Only order from our official store to make sure you receive the correct product, full support, and the current guarantee.",
+        "instruction_text": "Every order is protected by our return policy and secure checkout."
+      }
     },
     "trust": {
-      "type": "vital-care-trust-icons",
-      "settings": {}
+      "type": "vc-trust-icons",
+      "settings": {
+        "heading": "Shop with confidence"
+      }
     }
   },
   "order": [
     "main",
     "image_text_1",
+    "image_text_2",
     "benefits",
-    "proof",
+    "cta",
+    "professional_proof",
     "doctors",
     "faq",
     "guarantee",
