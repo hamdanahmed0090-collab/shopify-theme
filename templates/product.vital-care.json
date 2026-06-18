@@ -34,7 +34,7 @@
       }
     },
     "benefits": {
-      "type": "vital-care-benefit-icons",
+      "type": "vital-care-benefits",
       "settings": {
         "heading": "Imagine better comfort without changing your routine",
         "text": "Highlight the four most important product benefits here."
