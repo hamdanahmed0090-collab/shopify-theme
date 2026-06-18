@@ -1,7 +1,7 @@
 {
   "sections": {
     "main": {
-      "type": "vc-main-product",
+      "type": "vital-care-main-product",
       "settings": {
         "announcement_text": "Recommended by comfort-focused specialists and trusted by thousands of customers",
         "rating_text": "4.8/5 based on verified customer reviews",
@@ -14,7 +14,7 @@
       }
     },
     "image_text_1": {
-      "type": "vc-image-text",
+      "type": "vital-care-image-text",
       "settings": {
         "subheading": "Daily comfort",
         "heading": "Walk with more comfort every day",
@@ -24,7 +24,7 @@
       }
     },
     "image_text_2": {
-      "type": "vc-image-text",
+      "type": "vital-care-image-text",
       "settings": {
         "subheading": "Smart support",
         "heading": "Support where your customers need it most",
@@ -34,14 +34,14 @@
       }
     },
     "benefits": {
-      "type": "vc-benefit-icons",
+      "type": "vital-care-benefit-icons",
       "settings": {
         "heading": "Imagine better comfort without changing your routine",
         "text": "Highlight the four most important product benefits here."
       }
     },
     "cta": {
-      "type": "vc-cta-strip",
+      "type": "vital-care-cta-strip",
       "settings": {
         "heading": "Order today and feel the difference",
         "text": "Limited stock available. Add your product to cart while the offer is active.",
@@ -49,28 +49,28 @@
       }
     },
     "professional_proof": {
-      "type": "vc-professional-proof",
+      "type": "vital-care-professional-proof",
       "settings": {
         "heading": "Trusted comfort-focused design",
         "text": "Replace this section with real certifications, partner logos, press logos, or verified trust signals for your own brand."
       }
     },
     "doctors": {
-      "type": "vc-doctors",
+      "type": "vital-care-doctors",
       "settings": {
         "heading": "What customers are saying",
         "text": "Use real customer reviews or verified expert quotes. Do not use fake doctors or unsupported medical endorsements."
       }
     },
     "faq": {
-      "type": "vc-faq",
+      "type": "vital-care-faq",
       "settings": {
         "heading": "Frequently asked questions",
         "badge": "Support"
       }
     },
     "guarantee": {
-      "type": "vc-guarantee",
+      "type": "vital-care-guarantee",
       "settings": {
         "heading": "Authenticity guarantee",
         "warning_text": "Only order from our official store to make sure you receive the correct product, full support, and the current guarantee.",
@@ -78,7 +78,7 @@
       }
     },
     "trust": {
-      "type": "vc-trust-icons",
+      "type": "vital-care-trust-icons",
       "settings": {
         "heading": "Shop with confidence"
       }
