@@ -1,0 +1,66 @@
+{% style %}
+  #shopify-section-{{ section.id }} .ergo-ticker {
+    overflow: hidden;
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+    border-top: 1px solid rgba(0,0,0,.06);
+    border-bottom: 1px solid rgba(0,0,0,.06);
+  }
+
+  #shopify-section-{{ section.id }} .ergo-ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ergoTicker{{ section.id | replace: '-', '' }} 24s linear infinite;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-ticker-group {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    padding: 13px 13px;
+    white-space: nowrap;
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-dot {
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+    opacity: .45;
+  }
+
+  @keyframes ergoTicker{{ section.id | replace: '-', '' }} {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+{% endstyle %}
+
+<section class="ergo-ticker" aria-label="Product highlights">
+  <div class="ergo-ticker-track">
+    {% for repeat in (1..2) %}
+      <div class="ergo-ticker-group">
+        {% if section.settings.text_1 != blank %}<span>{{ section.settings.text_1 }}</span><span class="ergo-dot"></span>{% endif %}
+        {% if section.settings.text_2 != blank %}<span>{{ section.settings.text_2 }}</span><span class="ergo-dot"></span>{% endif %}
+        {% if section.settings.text_3 != blank %}<span>{{ section.settings.text_3 }}</span><span class="ergo-dot"></span>{% endif %}
+        {% if section.settings.text_4 != blank %}<span>{{ section.settings.text_4 }}</span><span class="ergo-dot"></span>{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ergo Vita ticker",
+  "settings": [
+    { "type": "text", "id": "text_1", "label": "Text 1", "default": "Comfort for long days" },
+    { "type": "text", "id": "text_2", "label": "Text 2", "default": "Lightweight support" },
+    { "type": "text", "id": "text_3", "label": "Text 3", "default": "Secure checkout" },
+    { "type": "text", "id": "text_4", "label": "Text 4", "default": "Easy returns" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#f4f8ff" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#003784" }
+  ],
+  "presets": [{ "name": "Ergo Vita ticker" }]
+}
+{% endschema %}

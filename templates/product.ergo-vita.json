@@ -1,0 +1,316 @@
+{
+  "sections": {
+    "main": {
+      "type": "ergo-vita-main-product",
+      "settings": {
+        "announcement_text": "Free tracked shipping today",
+        "rating_text": "Excellent 4.8/5 based on customer feedback",
+        "subtitle": "Comfort-focused footwear for long days on your feet.",
+        "badge_1": "Shock absorbing sole",
+        "badge_2": "Secure checkout",
+        "badge_3": "30-day returns",
+        "trust_1": "Designed for daily walking comfort",
+        "trust_2": "Soft support for long standing hours",
+        "trust_3": "Fast tracked delivery",
+        "show_description": true,
+        "show_dynamic_checkout": false,
+        "mobile_sticky_text": "Choose options"
+      }
+    },
+    "ticker": {
+      "type": "ergo-vita-ticker",
+      "settings": {
+        "text_1": "Comfort for long days",
+        "text_2": "Lightweight support",
+        "text_3": "Secure checkout",
+        "text_4": "Easy returns"
+      }
+    },
+    "logos": {
+      "type": "ergo-vita-logo-strip",
+      "settings": {
+        "heading": "Trusted by customers who stay active all day"
+      },
+      "blocks": {
+        "logo_1": {
+          "type": "logo",
+          "settings": {
+            "logo_text": "Daily Comfort"
+          }
+        },
+        "logo_2": {
+          "type": "logo",
+          "settings": {
+            "logo_text": "Soft Support"
+          }
+        },
+        "logo_3": {
+          "type": "logo",
+          "settings": {
+            "logo_text": "Lightweight Fit"
+          }
+        },
+        "logo_4": {
+          "type": "logo",
+          "settings": {
+            "logo_text": "Easy Walking"
+          }
+        }
+      },
+      "block_order": ["logo_1", "logo_2", "logo_3", "logo_4"]
+    },
+    "comparison": {
+      "type": "ergo-vita-comparison",
+      "settings": {
+        "heading": "Why customers choose this product",
+        "text": "A comfort-first structure helps reduce daily pressure and makes movement feel lighter during long routines.",
+        "before_label": "Standard footwear",
+        "after_label": "Comfort-focused design"
+      },
+      "blocks": {
+        "item_1": {
+          "type": "point",
+          "settings": {
+            "text": "Cushioned step feel"
+          }
+        },
+        "item_2": {
+          "type": "point",
+          "settings": {
+            "text": "Supportive footbed"
+          }
+        },
+        "item_3": {
+          "type": "point",
+          "settings": {
+            "text": "Flexible everyday fit"
+          }
+        },
+        "item_4": {
+          "type": "point",
+          "settings": {
+            "text": "Easy to pair with daily outfits"
+          }
+        }
+      },
+      "block_order": ["item_1", "item_2", "item_3", "item_4"]
+    },
+    "image_text_1": {
+      "type": "ergo-vita-image-text",
+      "settings": {
+        "kicker": "Daily comfort",
+        "heading": "Made for people who spend hours on their feet",
+        "text": "<p>This section is editable. Add your own product story, benefit explanation, and lifestyle image from the theme editor.</p>",
+        "image_side": "left",
+        "button_text": "Choose my size",
+        "button_link": "#ergo-product-top"
+      },
+      "blocks": {
+        "bullet_1": {
+          "type": "bullet",
+          "settings": {
+            "text": "Soft cushioning for everyday use"
+          }
+        },
+        "bullet_2": {
+          "type": "bullet",
+          "settings": {
+            "text": "Lightweight feel"
+          }
+        },
+        "bullet_3": {
+          "type": "bullet",
+          "settings": {
+            "text": "Supportive fit"
+          }
+        }
+      },
+      "block_order": ["bullet_1", "bullet_2", "bullet_3"]
+    },
+    "reviews": {
+      "type": "ergo-vita-reviews",
+      "settings": {
+        "heading": "Customer reviews",
+        "subheading": "Use real customer feedback from your own store."
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "name": "Sophie M.",
+            "meta": "Verified customer",
+            "title": "Very comfortable for daily wear",
+            "text": "I wear them for long days and they feel light and supportive."
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "name": "Claire D.",
+            "meta": "Verified customer",
+            "title": "Good support",
+            "text": "The fit is soft and the sole feels stable when walking."
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "name": "Emma L.",
+            "meta": "Verified customer",
+            "title": "Easy to wear",
+            "text": "They are simple to pair with outfits and comfortable throughout the day."
+          }
+        }
+      },
+      "block_order": ["review_1", "review_2", "review_3"]
+    },
+    "image_text_2": {
+      "type": "ergo-vita-image-text",
+      "settings": {
+        "kicker": "Support",
+        "heading": "A more comfortable step, every day",
+        "text": "<p>Use this area for your second image-and-text section. Keep claims accurate and specific to your product.</p>",
+        "image_side": "right",
+        "button_text": "Shop now",
+        "button_link": "#ergo-product-top"
+      },
+      "blocks": {
+        "bullet_1": {
+          "type": "bullet",
+          "settings": {
+            "text": "Flexible outsole"
+          }
+        },
+        "bullet_2": {
+          "type": "bullet",
+          "settings": {
+            "text": "Soft upper material"
+          }
+        },
+        "bullet_3": {
+          "type": "bullet",
+          "settings": {
+            "text": "Comfortable daily support"
+          }
+        }
+      },
+      "block_order": ["bullet_1", "bullet_2", "bullet_3"]
+    },
+    "stats": {
+      "type": "ergo-vita-stats",
+      "settings": {
+        "heading": "Designed for daily movement",
+        "text": "Replace these numbers with accurate store data or remove the section."
+      },
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "30",
+            "suffix": "days",
+            "label": "Return window"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "24/7",
+            "suffix": "",
+            "label": "Secure online checkout"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": "100",
+            "suffix": "%",
+            "label": "Editable section content"
+          }
+        }
+      },
+      "block_order": ["stat_1", "stat_2", "stat_3"]
+    },
+    "image_text_3": {
+      "type": "ergo-vita-image-text",
+      "settings": {
+        "kicker": "Details",
+        "heading": "Add your product construction details here",
+        "text": "<p>Explain the material, sole, sizing advice, and care instructions clearly.</p>",
+        "image_side": "left",
+        "button_text": "Back to product",
+        "button_link": "#ergo-product-top"
+      },
+      "blocks": {
+        "bullet_1": {
+          "type": "bullet",
+          "settings": {
+            "text": "Clear sizing guidance"
+          }
+        },
+        "bullet_2": {
+          "type": "bullet",
+          "settings": {
+            "text": "Product-specific material details"
+          }
+        },
+        "bullet_3": {
+          "type": "bullet",
+          "settings": {
+            "text": "Simple care instructions"
+          }
+        }
+      },
+      "block_order": ["bullet_1", "bullet_2", "bullet_3"]
+    },
+    "faq": {
+      "type": "ergo-vita-faq",
+      "settings": {
+        "heading": "Frequently asked questions",
+        "text": "Answer the most common buying questions before checkout."
+      },
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I choose my size?",
+            "answer": "<p>Use your normal size unless your product description recommends otherwise. Add your own size-guide details here.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "How long is delivery?",
+            "answer": "<p>Add your real delivery times based on your shipping policy.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I return the product?",
+            "answer": "<p>Add your real return policy here.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Is payment secure?",
+            "answer": "<p>Payments are processed through Shopify's secure checkout.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4"]
+    }
+  },
+  "order": [
+    "main",
+    "ticker",
+    "logos",
+    "comparison",
+    "image_text_1",
+    "reviews",
+    "image_text_2",
+    "stats",
+    "image_text_3",
+    "faq"
+  ]
+}

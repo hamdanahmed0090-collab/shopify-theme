@@ -1,0 +1,201 @@
+{% style %}
+  #shopify-section-{{ section.id }} .ergo-image-text {
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.background }};
+  }
+
+  #shopify-section-{{ section.id }} .ergo-image-text-container {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 42px;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-image-text-container.image-right .ergo-image-wrap {
+    order: 2;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-image-wrap {
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #eef5ff;
+    display: grid;
+    place-items: center;
+    color: #667085;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(16, 24, 40, .08);
+  }
+
+  #shopify-section-{{ section.id }} .ergo-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-kicker {
+    color: {{ section.settings.accent_color }};
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-size: 12px;
+    font-weight: 900;
+    margin-bottom: 9px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-image-text h2 {
+    margin: 0 0 14px;
+    font-size: clamp(26px, 3vw, 38px);
+    line-height: 1.15;
+    font-weight: 900;
+    color: {{ section.settings.heading_color }};
+  }
+
+  #shopify-section-{{ section.id }} .ergo-richtext {
+    color: {{ section.settings.text_color }};
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-richtext p {
+    margin-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-bullets {
+    display: grid;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-bullet {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 15px;
+    font-weight: 800;
+    color: #101828;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-bullet span:first-child {
+    color: #23a455;
+    font-weight: 900;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-image-text-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 22px;
+    padding: 14px 24px;
+    border-radius: 12px;
+    background: {{ section.settings.button_background }};
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    font-weight: 900;
+  }
+
+  @media (max-width: 820px) {
+    #shopify-section-{{ section.id }} .ergo-image-text-container {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .ergo-image-text-container.image-right .ergo-image-wrap {
+      order: 0;
+    }
+  }
+{% endstyle %}
+
+<section class="ergo-image-text">
+  <div class="ergo-image-text-container {% if section.settings.image_side == 'right' %}image-right{% endif %}">
+    <div class="ergo-image-wrap">
+      {% if section.settings.image != blank %}
+        {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: section.settings.image.alt | default: section.settings.heading }}
+      {% else %}
+        <span>Upload image in this section</span>
+      {% endif %}
+    </div>
+
+    <div class="ergo-copy-wrap">
+      {% if section.settings.kicker != blank %}
+        <div class="ergo-kicker">{{ section.settings.kicker }}</div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="ergo-richtext">{{ section.settings.text }}</div>
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <div class="ergo-bullets">
+          {% for block in section.blocks %}
+            <div class="ergo-bullet" {{ block.shopify_attributes }}>
+              <span>✓</span>
+              <span>{{ block.settings.text }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+        <a class="ergo-image-text-button" href="{{ section.settings.button_link }}">{{ section.settings.button_text }}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ergo Vita image text",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "image_side",
+      "label": "Image side on desktop",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Daily comfort" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Made for people who spend hours on their feet" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Add your product story and benefit explanation here.</p>" },
+    { "type": "text", "id": "button_text", "label": "Button text", "default": "Choose my size" },
+    { "type": "text", "id": "button_link", "label": "Button link", "default": "#ergo-product-top" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#101828" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#475467" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#003784" },
+    { "type": "color", "id": "button_background", "label": "Button background", "default": "#003784" },
+    { "type": "color", "id": "button_text_color", "label": "Button text color", "default": "#ffffff" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 20, "max": 100, "step": 4, "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 20, "max": 100, "step": 4, "default": 56 }
+  ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Bullet",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Comfort benefit" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ergo Vita image text",
+      "blocks": [
+        { "type": "bullet" },
+        { "type": "bullet" },
+        { "type": "bullet" }
+      ]
+    }
+  ]
+}
+{% endschema %}

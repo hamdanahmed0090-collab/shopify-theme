@@ -1,0 +1,791 @@
+{% comment %}
+  File: sections/ergo-vita-main-product.liquid
+  Purpose: Main product section for the Ergo Vita-style product template.
+  Uses your Shopify product data, product images, variants, price, and native add-to-cart form.
+{% endcomment %}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign product_form_id = 'ErgoProductForm-' | append: section.id %}
+
+{% style %}
+  #shopify-section-{{ section.id }} .ergo-main,
+  #shopify-section-{{ section.id }} .ergo-main * {
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-main {
+    --ergo-blue: #003784;
+    --ergo-blue-soft: #eef5ff;
+    --ergo-dark: #101828;
+    --ergo-muted: #667085;
+    --ergo-border: #d9e4f2;
+    --ergo-green: #23a455;
+    --ergo-red: #d92d20;
+    font-family: Helvetica, Arial, sans-serif;
+    color: var(--ergo-dark);
+    background: #ffffff;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-announcement {
+    background: var(--ergo-blue);
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 10px 16px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-section {
+    padding: 42px 20px 34px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-container {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, .85fr);
+    gap: 42px;
+    align-items: start;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-gallery {
+    position: sticky;
+    top: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-main-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--ergo-border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #f7f9fc;
+    box-shadow: 0 12px 32px rgba(16, 24, 40, .08);
+  }
+
+  #shopify-section-{{ section.id }} .ergo-main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 30px;
+    color: var(--ergo-muted);
+  }
+
+  #shopify-section-{{ section.id }} .ergo-thumbs {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-thumb {
+    border: 1px solid var(--ergo-border);
+    border-radius: 10px;
+    padding: 0;
+    background: #fff;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+    opacity: .55;
+    transition: .2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-thumb:hover,
+  #shopify-section-{{ section.id }} .ergo-thumb.is-active {
+    opacity: 1;
+    border-color: var(--ergo-blue);
+    transform: translateY(-1px);
+  }
+
+  #shopify-section-{{ section.id }} .ergo-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-buy-box {
+    border: 1px solid var(--ergo-border);
+    border-radius: 18px;
+    padding: 24px;
+    background: #fff;
+    box-shadow: 0 12px 32px rgba(16, 24, 40, .08);
+  }
+
+  #shopify-section-{{ section.id }} .ergo-rating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    color: var(--ergo-blue);
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-stars {
+    letter-spacing: 1px;
+    color: #f5a524;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-title {
+    margin: 0 0 10px;
+    font-size: clamp(26px, 3vw, 40px);
+    line-height: 1.08;
+    letter-spacing: -1px;
+    color: #111827;
+    font-weight: 800;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-subtitle {
+    color: var(--ergo-muted);
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 0 0 14px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-price-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-current-price {
+    color: var(--ergo-red);
+    font-size: 30px;
+    font-weight: 900;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-compare-price {
+    color: var(--ergo-muted);
+    text-decoration: line-through;
+    font-size: 17px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-save {
+    background: #fff0f0;
+    color: var(--ergo-red);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 6px 10px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 18px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-badge {
+    background: var(--ergo-blue-soft);
+    color: var(--ergo-blue);
+    border-radius: 999px;
+    padding: 8px 11px;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-option {
+    margin: 16px 0;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-option-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 9px;
+    color: #111827;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-option-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-option-value input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-option-value span {
+    min-width: 46px;
+    min-height: 42px;
+    padding: 9px 14px;
+    border: 1px solid var(--ergo-border);
+    border-radius: 10px;
+    background: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #111827;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .18s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-option-value input:checked + span {
+    border-color: var(--ergo-blue);
+    color: var(--ergo-blue);
+    background: var(--ergo-blue-soft);
+    box-shadow: 0 0 0 2px rgba(0, 55, 132, .1);
+  }
+
+  #shopify-section-{{ section.id }} .ergo-form-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-qty {
+    display: flex;
+    height: 56px;
+    border: 1px solid var(--ergo-border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-qty button,
+  #shopify-section-{{ section.id }} .ergo-qty input {
+    border: 0;
+    background: #fff;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-qty button {
+    width: 40px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 900;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-qty input {
+    width: 50px;
+    text-align: center;
+    font-weight: 800;
+    border-left: 1px solid var(--ergo-border);
+    border-right: 1px solid var(--ergo-border);
+    -moz-appearance: textfield;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-qty input::-webkit-outer-spin-button,
+  #shopify-section-{{ section.id }} .ergo-qty input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-atc {
+    width: 100%;
+    min-height: 56px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--ergo-blue);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(0, 55, 132, .22);
+    transition: .2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-atc:hover {
+    transform: translateY(-1px);
+    filter: brightness(.96);
+  }
+
+  #shopify-section-{{ section.id }} .ergo-atc:disabled {
+    background: #98a2b3;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-payment-pills {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 16px 0 10px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-pay-pill {
+    border: 1px solid var(--ergo-border);
+    border-radius: 6px;
+    background: #f8fafc;
+    color: #344054;
+    min-width: 48px;
+    height: 28px;
+    padding: 0 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 900;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-trust {
+    display: grid;
+    gap: 9px;
+    margin-top: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-trust-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #344054;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-check {
+    color: var(--ergo-green);
+    font-weight: 900;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-description {
+    border-top: 1px solid var(--ergo-border);
+    margin-top: 16px;
+    padding-top: 16px;
+    color: #475467;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  #shopify-section-{{ section.id }} .ergo-mobile-sticky {
+    display: none;
+    position: fixed;
+    z-index: 50;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    border-top: 1px solid var(--ergo-border);
+    padding: 10px 14px;
+    box-shadow: 0 -8px 24px rgba(16, 24, 40, .12);
+  }
+
+  #shopify-section-{{ section.id }} .ergo-mobile-sticky a {
+    display: block;
+    border-radius: 12px;
+    background: var(--ergo-blue);
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 900;
+    padding: 14px 16px;
+  }
+
+  @media (max-width: 900px) {
+    #shopify-section-{{ section.id }} .ergo-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .ergo-gallery {
+      position: static;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #shopify-section-{{ section.id }} .ergo-section {
+      padding: 28px 14px;
+    }
+
+    #shopify-section-{{ section.id }} .ergo-buy-box {
+      padding: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .ergo-thumbs {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    #shopify-section-{{ section.id }} .ergo-form-row {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .ergo-mobile-sticky {
+      display: block;
+    }
+
+    body {
+      padding-bottom: 74px;
+    }
+  }
+{% endstyle %}
+
+<div class="ergo-main" data-ergo-main data-currency="{{ cart.currency.iso_code }}" data-locale="{{ request.locale.iso_code | default: 'en' }}">
+  {% if section.settings.announcement_text != blank %}
+    <div class="ergo-announcement">{{ section.settings.announcement_text }}</div>
+  {% endif %}
+
+  <section class="ergo-section" id="ergo-product-top">
+    <div class="ergo-container">
+      <div class="ergo-grid">
+        <div class="ergo-gallery">
+          <div class="ergo-main-image" data-ergo-main-image>
+            {% if product.featured_media %}
+              {% assign featured_alt = product.featured_media.alt | default: product.title %}
+              {{ product.featured_media.preview_image | image_url: width: 1400 | image_tag: loading: 'eager', alt: featured_alt }}
+            {% else %}
+              <div class="ergo-placeholder">Upload product images to show the gallery here.</div>
+            {% endif %}
+          </div>
+
+          {% if product.media.size > 1 %}
+            <div class="ergo-thumbs" aria-label="Product images">
+              {% for media in product.media limit: 20 %}
+                {% assign thumb_alt = media.alt | default: product.title %}
+                <button
+                  type="button"
+                  class="ergo-thumb {% if forloop.first %}is-active{% endif %}"
+                  data-ergo-thumb
+                  data-media-id="{{ media.id }}"
+                  data-full-src="{{ media.preview_image | image_url: width: 1400 }}"
+                  aria-label="Show image {{ forloop.index }}"
+                >
+                  {{ media.preview_image | image_url: width: 220 | image_tag: loading: 'lazy', alt: thumb_alt }}
+                </button>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="ergo-buy-box">
+          <div class="ergo-rating">
+            <span class="ergo-stars">★★★★★</span>
+            <span>{{ section.settings.rating_text }}</span>
+          </div>
+
+          <h1 class="ergo-title">{{ product.title }}</h1>
+
+          {% if section.settings.subtitle != blank %}
+            <p class="ergo-subtitle">{{ section.settings.subtitle }}</p>
+          {% endif %}
+
+          <div class="ergo-price-row">
+            <span class="ergo-current-price" data-ergo-price>{{ current_variant.price | money }}</span>
+
+            <span class="ergo-compare-price" data-ergo-compare {% unless current_variant.compare_at_price > current_variant.price %}style="display:none"{% endunless %}>
+              {{ current_variant.compare_at_price | money }}
+            </span>
+
+            <span class="ergo-save" data-ergo-save {% unless current_variant.compare_at_price > current_variant.price %}style="display:none"{% endunless %}>
+              Save
+            </span>
+          </div>
+
+          <div class="ergo-badges">
+            {% if section.settings.badge_1 != blank %}<span class="ergo-badge">{{ section.settings.badge_1 }}</span>{% endif %}
+            {% if section.settings.badge_2 != blank %}<span class="ergo-badge">{{ section.settings.badge_2 }}</span>{% endif %}
+            {% if section.settings.badge_3 != blank %}<span class="ergo-badge">{{ section.settings.badge_3 }}</span>{% endif %}
+          </div>
+
+          {% form 'product', product, id: product_form_id, class: 'ergo-product-form' %}
+            <input type="hidden" name="id" value="{{ current_variant.id }}" data-ergo-variant-id>
+
+            {% unless product.has_only_default_variant %}
+              {% for option in product.options_with_values %}
+                <div class="ergo-option" data-option-position="{{ option.position }}">
+                  <div class="ergo-option-title">
+                    <span>{{ option.name }}</span>
+                    <span data-ergo-selected-option>{{ option.selected_value }}</span>
+                  </div>
+
+                  <div class="ergo-option-values">
+                    {% for value in option.values %}
+                      <label class="ergo-option-value">
+                        <input
+                          type="radio"
+                          name="options[{{ option.name | escape }}]"
+                          value="{{ value | escape }}"
+                          {% if option.selected_value == value %}checked{% endif %}
+                          data-ergo-option-input
+                        >
+                        <span>{{ value }}</span>
+                      </label>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endfor %}
+            {% endunless %}
+
+            <div class="ergo-form-row">
+              <div class="ergo-qty" aria-label="Quantity">
+                <button type="button" data-ergo-qty-minus aria-label="Decrease quantity">−</button>
+                <input type="number" name="quantity" min="1" value="1" data-ergo-qty>
+                <button type="button" data-ergo-qty-plus aria-label="Increase quantity">+</button>
+              </div>
+
+              <button type="submit" name="add" class="ergo-atc" data-ergo-atc {% unless current_variant.available %}disabled{% endunless %}>
+                {% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}
+              </button>
+            </div>
+
+            {% if section.settings.show_dynamic_checkout %}
+              {{ form | payment_button }}
+            {% endif %}
+          {% endform %}
+
+          <div class="ergo-payment-pills" aria-label="Payment methods">
+            <span class="ergo-pay-pill">VISA</span>
+            <span class="ergo-pay-pill">MC</span>
+            <span class="ergo-pay-pill">AMEX</span>
+            <span class="ergo-pay-pill">PayPal</span>
+            <span class="ergo-pay-pill">Shop Pay</span>
+          </div>
+
+          <div class="ergo-trust">
+            {% if section.settings.trust_1 != blank %}<div class="ergo-trust-item"><span class="ergo-check">✓</span><span>{{ section.settings.trust_1 }}</span></div>{% endif %}
+            {% if section.settings.trust_2 != blank %}<div class="ergo-trust-item"><span class="ergo-check">✓</span><span>{{ section.settings.trust_2 }}</span></div>{% endif %}
+            {% if section.settings.trust_3 != blank %}<div class="ergo-trust-item"><span class="ergo-check">✓</span><span>{{ section.settings.trust_3 }}</span></div>{% endif %}
+          </div>
+
+          {% if section.settings.show_description and product.description != blank %}
+            <div class="ergo-description">{{ product.description | truncatewords: 90 }}</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ergo-mobile-sticky">
+    <a href="#ergo-product-top">{{ section.settings.mobile_sticky_text }}</a>
+  </div>
+
+  <script type="application/json" data-ergo-variants-json>
+    {{ product.variants | json }}
+  </script>
+</div>
+
+<script>
+(() => {
+  const root = document.querySelector('#shopify-section-{{ section.id }} [data-ergo-main]');
+  if (!root || root.dataset.initialized === 'true') return;
+  root.dataset.initialized = 'true';
+
+  const variantsNode = root.querySelector('[data-ergo-variants-json]');
+  const variants = variantsNode ? JSON.parse(variantsNode.textContent) : [];
+  const currency = root.dataset.currency || 'USD';
+  const locale = root.dataset.locale || 'en';
+
+  const hiddenVariant = root.querySelector('[data-ergo-variant-id]');
+  const priceEl = root.querySelector('[data-ergo-price]');
+  const compareEl = root.querySelector('[data-ergo-compare]');
+  const saveEl = root.querySelector('[data-ergo-save]');
+  const atc = root.querySelector('[data-ergo-atc]');
+  const qty = root.querySelector('[data-ergo-qty]');
+  const mainImage = root.querySelector('[data-ergo-main-image] img');
+
+  const money = (cents) => {
+    try {
+      return new Intl.NumberFormat(locale, { style: 'currency', currency }).format((Number(cents) || 0) / 100);
+    } catch (error) {
+      return ((Number(cents) || 0) / 100).toFixed(2);
+    }
+  };
+
+  function selectedOptions() {
+    return [...root.querySelectorAll('.ergo-option')].map(group => {
+      const checked = group.querySelector('input[type="radio"]:checked');
+      return checked ? checked.value : null;
+    });
+  }
+
+  function selectedVariant() {
+    const selected = selectedOptions();
+    if (!selected.length) return variants[0];
+    return variants.find(variant => variant.options.every((value, index) => value === selected[index]));
+  }
+
+  function updateOptionLabels() {
+    root.querySelectorAll('.ergo-option').forEach(group => {
+      const label = group.querySelector('[data-ergo-selected-option]');
+      const checked = group.querySelector('input[type="radio"]:checked');
+      if (label && checked) label.textContent = checked.value;
+    });
+  }
+
+  function setActiveThumbByMediaId(mediaId) {
+    if (!mediaId) return;
+    const thumb = root.querySelector(`[data-ergo-thumb][data-media-id="${mediaId}"]`);
+    if (thumb) thumb.click();
+  }
+
+  function updateVariant() {
+    updateOptionLabels();
+
+    const variant = selectedVariant();
+
+    if (!variant) {
+      if (atc) {
+        atc.disabled = true;
+        atc.textContent = 'Unavailable';
+      }
+      return;
+    }
+
+    if (hiddenVariant) hiddenVariant.value = variant.id;
+    if (priceEl) priceEl.textContent = money(variant.price);
+
+    if (compareEl && saveEl && variant.compare_at_price && variant.compare_at_price > variant.price) {
+      compareEl.textContent = money(variant.compare_at_price);
+      compareEl.style.display = '';
+      const percent = Math.round(((variant.compare_at_price - variant.price) / variant.compare_at_price) * 100);
+      saveEl.textContent = `Save ${percent}%`;
+      saveEl.style.display = '';
+    } else {
+      if (compareEl) compareEl.style.display = 'none';
+      if (saveEl) saveEl.style.display = 'none';
+    }
+
+    if (atc) {
+      atc.disabled = !variant.available;
+      atc.textContent = variant.available ? 'Add to cart' : 'Sold out';
+    }
+
+    if (variant.featured_media && variant.featured_media.id) {
+      setActiveThumbByMediaId(variant.featured_media.id);
+    }
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('variant', variant.id);
+    window.history.replaceState({}, '', url.toString());
+  }
+
+  root.querySelectorAll('[data-ergo-option-input]').forEach(input => {
+    input.addEventListener('change', updateVariant);
+  });
+
+  root.querySelectorAll('[data-ergo-thumb]').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      if (!mainImage) return;
+      mainImage.src = thumb.dataset.fullSrc;
+      mainImage.srcset = '';
+      const thumbImage = thumb.querySelector('img');
+      mainImage.alt = thumbImage ? thumbImage.alt : '';
+      root.querySelectorAll('[data-ergo-thumb]').forEach(item => item.classList.remove('is-active'));
+      thumb.classList.add('is-active');
+    });
+  });
+
+  root.querySelector('[data-ergo-qty-minus]')?.addEventListener('click', () => {
+    if (!qty) return;
+    qty.value = Math.max(1, Number(qty.value || 1) - 1);
+  });
+
+  root.querySelector('[data-ergo-qty-plus]')?.addEventListener('click', () => {
+    if (!qty) return;
+    qty.value = Math.max(1, Number(qty.value || 1) + 1);
+  });
+
+  updateVariant();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Ergo Vita main product",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Top announcement text",
+      "default": "Free tracked shipping today"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "Excellent 4.8/5 based on customer feedback"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Comfort-focused footwear for long days on your feet."
+    },
+    {
+      "type": "text",
+      "id": "badge_1",
+      "label": "Badge 1",
+      "default": "Shock absorbing sole"
+    },
+    {
+      "type": "text",
+      "id": "badge_2",
+      "label": "Badge 2",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "text",
+      "id": "badge_3",
+      "label": "Badge 3",
+      "default": "30-day returns"
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Trust point 1",
+      "default": "Designed for daily walking comfort"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Trust point 2",
+      "default": "Soft support for long standing hours"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Trust point 3",
+      "default": "Fast tracked delivery"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show short product description",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout",
+      "label": "Show dynamic checkout button",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "mobile_sticky_text",
+      "label": "Mobile sticky button text",
+      "default": "Choose options"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ergo Vita main product"
+    }
+  ]
+}
+{% endschema %}
