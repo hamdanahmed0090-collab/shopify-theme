@@ -1,0 +1,176 @@
+<section class="sly-testimonials">
+  <div class="sly-wrap">
+    <h2>{{ section.settings.heading }}</h2>
+    <div class="sly-chips">
+      {% assign chips = section.settings.chips | split: ',' %}
+      {% for chip in chips %}
+        <span class="{% if forloop.first %}active{% endif %}">{{ chip | strip }}</span>
+      {% endfor %}
+    </div>
+    {% if section.settings.badge != blank %}
+      <div class="sly-badge">{{ section.settings.badge }}</div>
+    {% endif %}
+    <div class="sly-grid">
+      {% for block in section.blocks %}
+        <article class="sly-card" {{ block.shopify_attributes }}>
+          <div class="sly-photo">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: block.settings.name }}
+            {% else %}
+              <span>Customer photo</span>
+            {% endif %}
+          </div>
+          <div class="sly-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <h3>{{ block.settings.title }}</h3>
+          <div class="sly-body">{{ block.settings.body }}</div>
+          <div class="sly-reviewer">
+            <span class="sly-avatar"></span>
+            <strong>{{ block.settings.name }}</strong>
+            <span>{{ section.settings.verified_label }}</span>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} .sly-testimonials {
+    background: #fff;
+    padding: 72px 32px;
+    font-family: Inter, system-ui, sans-serif;
+    color: #1a1a1a;
+  }
+  #shopify-section-{{ section.id }} .sly-wrap { max-width: 1200px; margin: 0 auto; }
+  #shopify-section-{{ section.id }} h2 {
+    margin: 0 0 32px;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 42px;
+    line-height: 1.2;
+    text-align: center;
+  }
+  #shopify-section-{{ section.id }} .sly-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  #shopify-section-{{ section.id }} .sly-chips span {
+    border: 1px solid #f0d9e2;
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  #shopify-section-{{ section.id }} .sly-chips .active { background: #f8e4ec; border-color: #f8e4ec; }
+  #shopify-section-{{ section.id }} .sly-badge {
+    width: fit-content;
+    margin: 0 auto 40px;
+    border-radius: 999px;
+    background: {{ section.settings.accent_color }};
+    color: #fff;
+    padding: 6px 16px;
+    font-weight: 800;
+  }
+  #shopify-section-{{ section.id }} .sly-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  #shopify-section-{{ section.id }} .sly-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border: 1px solid #f0d9e2;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(233,30,99,.08);
+  }
+  #shopify-section-{{ section.id }} .sly-photo {
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #f8e4ec;
+    color: #6b6b6b;
+    text-align: center;
+  }
+  #shopify-section-{{ section.id }} .sly-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  #shopify-section-{{ section.id }} .sly-stars {
+    color: {{ section.settings.accent_color }};
+    letter-spacing: 2px;
+  }
+  #shopify-section-{{ section.id }} h3 { margin: 0; font-size: 16px; }
+  #shopify-section-{{ section.id }} .sly-body {
+    color: #6b6b6b;
+    line-height: 1.6;
+  }
+  #shopify-section-{{ section.id }} .sly-body p { margin: 0; }
+  #shopify-section-{{ section.id }} .sly-reviewer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+    font-size: 14px;
+  }
+  #shopify-section-{{ section.id }} .sly-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: #f8e4ec;
+  }
+  #shopify-section-{{ section.id }} .sly-reviewer span:last-child {
+    color: {{ section.settings.accent_color }};
+    font-size: 12px;
+    font-weight: 700;
+  }
+  @media (max-width: 900px) {
+    #shopify-section-{{ section.id }} .sly-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 540px) {
+    #shopify-section-{{ section.id }} .sly-testimonials { padding: 48px 20px; }
+    #shopify-section-{{ section.id }} .sly-grid { grid-template-columns: 1fr; }
+    #shopify-section-{{ section.id }} h2 { font-size: 28px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "TrySolys testimonials",
+  "settings": [
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#E91E63" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What You Can Expect" },
+    { "type": "text", "id": "chips", "label": "Chips separated by commas", "default": "Overnight Hydration, Glow, Smoother Skin, Even Tone, Fewer Lines, Soft Feel" },
+    { "type": "text", "id": "badge", "label": "Badge", "default": "Verified reviews" },
+    { "type": "text", "id": "verified_label", "label": "Verified label", "default": "Verified" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Customer photo" },
+        { "type": "text", "id": "title", "label": "Title", "default": "My skin feels softer" },
+        { "type": "richtext", "id": "body", "label": "Review body", "default": "<p>Add a natural customer review describing texture, use, and visible results.</p>" },
+        { "type": "text", "id": "name", "label": "Reviewer name", "default": "Emily R." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TrySolys testimonials",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}

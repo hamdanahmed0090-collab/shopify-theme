@@ -1,0 +1,753 @@
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign compare_price = current_variant.compare_at_price
+  assign has_compare = false
+  if compare_price > current_variant.price
+    assign has_compare = true
+  endif
+%}
+
+<section class="sly-main" id="sly-main-{{ section.id }}" data-sly-main data-money-format="{{ shop.money_format | escape }}">
+  {% if section.settings.announcement_text != blank %}
+    <div class="sly-announcement">
+      <p>{{ section.settings.announcement_text }}</p>
+    </div>
+  {% endif %}
+
+  <div class="sly-nav">
+    <div class="sly-nav-left">
+      <button class="sly-hamburger" type="button" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      {% if section.settings.shop_link_label != blank %}
+        <a href="{{ section.settings.shop_link | default: routes.all_products_collection_url }}" class="sly-nav-shop">
+          {{ section.settings.shop_link_label }}
+        </a>
+      {% endif %}
+    </div>
+    <a href="{{ routes.root_url }}" class="sly-brand">{{ section.settings.brand_name }}</a>
+    <div class="sly-nav-right">
+      <a href="{{ routes.search_url }}" aria-label="Search">Search</a>
+      <a href="{{ routes.cart_url }}" aria-label="Cart">Cart</a>
+    </div>
+  </div>
+
+  <div class="sly-hero">
+    <div class="sly-container sly-hero-grid">
+      <div class="sly-gallery">
+        {% if product.media.size > 1 %}
+          <div class="sly-thumbs" aria-label="Product images">
+            {% for media in product.media limit: 6 %}
+              {% assign media_alt = media.alt | default: product.title %}
+              <button
+                type="button"
+                class="sly-thumb{% if forloop.first %} is-active{% endif %}"
+                data-sly-thumb
+                data-media-id="{{ media.id }}"
+                data-image="{{ media.preview_image | image_url: width: 1200 }}"
+                data-alt="{{ media_alt | escape }}"
+                aria-label="Show product image {{ forloop.index }}"
+              >
+                {{ media.preview_image | image_url: width: 180 | image_tag: loading: 'lazy', alt: media_alt }}
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="sly-main-image" data-sly-main-image-wrap>
+          {% if product.featured_media %}
+            {% assign featured_alt = product.featured_media.alt | default: product.title %}
+            {{ product.featured_media.preview_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: featured_alt }}
+          {% else %}
+            <div class="sly-placeholder">Upload product image</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="sly-buybox">
+        {% if section.settings.rating_text != blank %}
+          <div class="sly-rating">
+            <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <p>{{ section.settings.rating_text }}</p>
+          </div>
+        {% endif %}
+
+        <h1>{{ product.title }}</h1>
+
+        {% if section.settings.subheading != blank %}
+          <div class="sly-subheading">{{ section.settings.subheading }}</div>
+        {% endif %}
+
+        {% form 'product', product, id: 'TrySolysProductForm', class: 'sly-form' %}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" data-sly-variant-id>
+          <input type="hidden" name="quantity" value="{{ section.settings.default_bundle_quantity }}" data-sly-quantity-input>
+
+          {% unless product.has_only_default_variant %}
+            <div class="sly-options">
+              {% for option in product.options_with_values %}
+                <fieldset class="sly-option" data-option-position="{{ option.position }}">
+                  <legend>
+                    <span>{{ option.name }}</span>
+                    <span data-sly-selected-option>{{ option.selected_value }}</span>
+                  </legend>
+                  <div class="sly-option-values">
+                    {% for value in option.values %}
+                      <label>
+                        <input
+                          type="radio"
+                          name="options[{{ option.name | escape }}]"
+                          value="{{ value | escape }}"
+                          {% if option.selected_value == value %}checked{% endif %}
+                          data-sly-option-input
+                        >
+                        <span>{{ value }}</span>
+                      </label>
+                    {% endfor %}
+                  </div>
+                </fieldset>
+              {% endfor %}
+            </div>
+          {% endunless %}
+
+          <div class="sly-bundles" data-sly-bundles>
+            {% for block in section.blocks %}
+              {% if block.type == 'bundle' %}
+                <button
+                  type="button"
+                  class="sly-bundle{% if block.settings.selected %} is-selected{% endif %}"
+                  data-sly-bundle
+                  data-qty="{{ block.settings.quantity }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {% if block.settings.badge != blank %}
+                    <span class="sly-bundle-badge">{{ block.settings.badge }}</span>
+                  {% endif %}
+                  <span class="sly-bundle-radio"></span>
+                  <span class="sly-bundle-info">
+                    <strong>{{ block.settings.title }}</strong>
+                    <small>{{ block.settings.subtitle }}</small>
+                  </span>
+                  <span class="sly-bundle-price" data-sly-bundle-price data-qty="{{ block.settings.quantity }}">
+                    {{ current_variant.price | times: block.settings.quantity | money }}
+                  </span>
+                </button>
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          <div class="sly-qty">
+            <span>{{ section.settings.quantity_label }}</span>
+            <div class="sly-stepper">
+              <button type="button" data-sly-qty-minus aria-label="Decrease quantity">-</button>
+              <span data-sly-qty-label>{{ section.settings.default_bundle_quantity }}</span>
+              <button type="button" data-sly-qty-plus aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+
+          <button class="sly-atc" type="submit" name="add" data-sly-atc {% unless current_variant.available %}disabled{% endunless %}>
+            <span data-sly-atc-text>
+              {% if current_variant.available %}
+                {{ section.settings.atc_label }} - <span data-sly-total-price>{{ current_variant.price | times: section.settings.default_bundle_quantity | money }}</span>
+              {% else %}
+                {{ section.settings.sold_out_label }}
+              {% endif %}
+            </span>
+          </button>
+
+          {% if section.settings.show_dynamic_checkout %}
+            <div class="sly-dynamic-checkout">{{ form | payment_button }}</div>
+          {% endif %}
+        {% endform %}
+
+        <div class="sly-trust">
+          {% for block in section.blocks %}
+            {% if block.type == 'trust' and block.settings.text != blank %}
+              <div class="sly-trust-item" {{ block.shopify_attributes }}>
+                <span>&#10003;</span>{{ block.settings.text }}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" data-sly-variants-json>{{ product.variants | json }}</script>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} .sly-main {
+    --sly-black: #1a1a1a;
+    --sly-pink: {{ section.settings.accent_color }};
+    --sly-soft: {{ section.settings.soft_color }};
+    --sly-border: #f0d9e2;
+    --sly-muted: #6b6b6b;
+    background: #fff;
+    color: var(--sly-black);
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} .sly-announcement {
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 32px;
+    background: var(--sly-black);
+    color: #fff;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .sly-announcement p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .05em;
+  }
+
+  #shopify-section-{{ section.id }} .sly-nav {
+    height: 72px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--sly-border);
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .sly-nav-left,
+  #shopify-section-{{ section.id }} .sly-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-nav-right {
+    justify-content: flex-end;
+  }
+
+  #shopify-section-{{ section.id }} .sly-hamburger {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 0;
+    background: transparent;
+    padding: 4px 0;
+  }
+
+  #shopify-section-{{ section.id }} .sly-hamburger span {
+    height: 2px;
+    background: var(--sly-black);
+  }
+
+  #shopify-section-{{ section.id }} .sly-nav a {
+    color: var(--sly-black);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .sly-brand {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    letter-spacing: .02em;
+  }
+
+  #shopify-section-{{ section.id }} .sly-hero {
+    padding: 72px 32px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .sly-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 55%) minmax(340px, 45%);
+    gap: 48px;
+    align-items: start;
+  }
+
+  #shopify-section-{{ section.id }} .sly-gallery {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-thumbs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-thumb {
+    width: 80px;
+    height: 80px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+    background: var(--sly-soft);
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .sly-thumb.is-active {
+    border-color: var(--sly-pink);
+  }
+
+  #shopify-section-{{ section.id }} .sly-thumb img,
+  #shopify-section-{{ section.id }} .sly-main-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .sly-main-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--sly-soft);
+  }
+
+  #shopify-section-{{ section.id }} .sly-placeholder {
+    height: 100%;
+    display: grid;
+    place-items: center;
+    color: #999;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .sly-buybox {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--sly-pink);
+  }
+
+  #shopify-section-{{ section.id }} .sly-rating p {
+    margin: 0;
+    color: var(--sly-muted);
+    font-size: 14px;
+  }
+
+  #shopify-section-{{ section.id }} h1 {
+    margin: 0;
+    color: var(--sly-black);
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(32px, 4vw, 42px);
+    line-height: 1.15;
+    font-weight: 800;
+  }
+
+  #shopify-section-{{ section.id }} .sly-subheading {
+    color: var(--sly-muted);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  #shopify-section-{{ section.id }} .sly-subheading p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .sly-form,
+  #shopify-section-{{ section.id }} .sly-bundles {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-option {
+    border: 0;
+    margin: 0 0 14px;
+    padding: 0;
+  }
+
+  #shopify-section-{{ section.id }} .sly-option legend {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .sly-option-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-option-values input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .sly-option-values span {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    border: 1px solid var(--sly-border);
+    border-radius: 999px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .sly-option-values input:checked + span {
+    border-color: var(--sly-pink);
+    background: var(--sly-soft);
+    color: var(--sly-pink);
+  }
+
+  #shopify-section-{{ section.id }} .sly-bundle {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid var(--sly-border);
+    border-radius: 12px;
+    background: #fff;
+    padding: 20px 24px;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .sly-bundle.is-selected {
+    border: 2px solid var(--sly-pink);
+    padding: 19px 23px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-bundle-radio {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--sly-border);
+    border-radius: 999px;
+    flex: 0 0 18px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-bundle.is-selected .sly-bundle-radio {
+    border-color: var(--sly-pink);
+    background: radial-gradient(circle, var(--sly-pink) 40%, #fff 45%);
+  }
+
+  #shopify-section-{{ section.id }} .sly-bundle-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-bundle-info strong,
+  #shopify-section-{{ section.id }} .sly-bundle-price {
+    color: var(--sly-black);
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  #shopify-section-{{ section.id }} .sly-bundle-info small {
+    color: var(--sly-muted);
+    font-size: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-bundle-badge {
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    border-radius: 999px;
+    background: var(--sly-pink);
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .04em;
+  }
+
+  #shopify-section-{{ section.id }} .sly-qty {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .sly-stepper {
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid var(--sly-border);
+    border-radius: 999px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-stepper button {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    background: #fff;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-stepper span {
+    min-width: 32px;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .sly-atc {
+    width: 100%;
+    height: 56px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--sly-pink);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(233, 30, 99, .35);
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: .03em;
+    margin-top: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-atc:disabled {
+    background: #999;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  #shopify-section-{{ section.id }} .sly-trust {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--sly-muted);
+    font-size: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .sly-trust-item span {
+    color: var(--sly-pink);
+    font-weight: 900;
+  }
+
+  @media (max-width: 900px) {
+    #shopify-section-{{ section.id }} .sly-hero-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .sly-trust {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 540px) {
+    #shopify-section-{{ section.id }} .sly-nav {
+      padding: 0 16px;
+    }
+
+    #shopify-section-{{ section.id }} .sly-nav-shop,
+    #shopify-section-{{ section.id }} .sly-nav-right a:first-child {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .sly-hero {
+      padding: 48px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .sly-gallery {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .sly-thumbs {
+      flex-direction: row;
+      order: 2;
+    }
+
+    #shopify-section-{{ section.id }} .sly-thumb {
+      width: 64px;
+      height: 64px;
+    }
+
+    #shopify-section-{{ section.id }} .sly-trust {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById('sly-main-{{ section.id }}');
+    if (!root) return;
+
+    const variantsEl = root.querySelector('[data-sly-variants-json]');
+    const variants = variantsEl ? JSON.parse(variantsEl.textContent) : [];
+    const moneyFormat = root.dataset.moneyFormat;
+    const variantInput = root.querySelector('[data-sly-variant-id]');
+    const quantityInput = root.querySelector('[data-sly-quantity-input]');
+    const qtyLabel = root.querySelector('[data-sly-qty-label]');
+    const atc = root.querySelector('[data-sly-atc]');
+    const atcText = root.querySelector('[data-sly-atc-text]');
+    const totalPrice = root.querySelector('[data-sly-total-price]');
+    const mainImage = root.querySelector('[data-sly-main-image-wrap] img');
+
+    let activeVariant = variants.find((variant) => String(variant.id) === String(variantInput && variantInput.value)) || variants[0];
+    let quantity = Number(quantityInput && quantityInput.value) || 1;
+
+    const formatMoney = (cents) => {
+      if (window.Shopify && typeof window.Shopify.formatMoney === 'function') {
+        return window.Shopify.formatMoney(cents, moneyFormat);
+      }
+      return (cents / 100).toLocaleString(undefined, {
+        style: 'currency',
+        currency: '{{ cart.currency.iso_code | default: shop.currency }}'
+      });
+    };
+
+    const selectedOptions = () => {
+      return Array.from(root.querySelectorAll('.sly-option')).map((group) => {
+        const checked = group.querySelector('[data-sly-option-input]:checked');
+        return checked ? checked.value : '';
+      });
+    };
+
+    const findVariant = () => {
+      const selected = selectedOptions();
+      return variants.find((variant) => variant.options.every((option, index) => option === selected[index]));
+    };
+
+    const sync = () => {
+      if (!activeVariant) return;
+      if (variantInput) variantInput.value = activeVariant.id;
+      if (quantityInput) quantityInput.value = quantity;
+      if (qtyLabel) qtyLabel.textContent = quantity;
+      root.querySelectorAll('[data-sly-bundle-price]').forEach((price) => {
+        price.textContent = formatMoney(activeVariant.price * Number(price.dataset.qty || 1));
+      });
+      if (totalPrice) totalPrice.textContent = formatMoney(activeVariant.price * quantity);
+      if (atc && atcText) {
+        atc.disabled = !activeVariant.available;
+        atcText.innerHTML = activeVariant.available
+          ? '{{ section.settings.atc_label | escape }} - <span data-sly-total-price>' + formatMoney(activeVariant.price * quantity) + '</span>'
+          : '{{ section.settings.sold_out_label | escape }}';
+      }
+    };
+
+    root.querySelectorAll('[data-sly-option-input]').forEach((input) => {
+      input.addEventListener('change', () => {
+        const group = input.closest('.sly-option');
+        const label = group ? group.querySelector('[data-sly-selected-option]') : null;
+        if (label) label.textContent = input.value;
+        activeVariant = findVariant() || activeVariant;
+        if (activeVariant && activeVariant.featured_media) {
+          const thumb = root.querySelector(`[data-sly-thumb][data-media-id="${activeVariant.featured_media.id}"]`);
+          if (thumb && mainImage) {
+            mainImage.src = thumb.dataset.image;
+            mainImage.alt = thumb.dataset.alt || '{{ product.title | escape }}';
+          }
+        }
+        sync();
+      });
+    });
+
+    root.querySelectorAll('[data-sly-thumb]').forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        if (!mainImage) return;
+        mainImage.src = thumb.dataset.image;
+        mainImage.alt = thumb.dataset.alt || '{{ product.title | escape }}';
+        root.querySelectorAll('[data-sly-thumb]').forEach((item) => item.classList.remove('is-active'));
+        thumb.classList.add('is-active');
+      });
+    });
+
+    root.querySelectorAll('[data-sly-bundle]').forEach((bundle) => {
+      bundle.addEventListener('click', () => {
+        quantity = Math.max(1, Number(bundle.dataset.qty || 1));
+        root.querySelectorAll('[data-sly-bundle]').forEach((item) => item.classList.remove('is-selected'));
+        bundle.classList.add('is-selected');
+        sync();
+      });
+    });
+
+    const minus = root.querySelector('[data-sly-qty-minus]');
+    const plus = root.querySelector('[data-sly-qty-plus]');
+    if (minus) minus.addEventListener('click', () => { quantity = Math.max(1, quantity - 1); sync(); });
+    if (plus) plus.addEventListener('click', () => { quantity += 1; sync(); });
+    sync();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "TrySolys main product",
+  "settings": [
+    { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "FREE US SHIPPING ON ORDERS OVER $50" },
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "TrySolys" },
+    { "type": "text", "id": "shop_link_label", "label": "Shop link label", "default": "SHOP" },
+    { "type": "url", "id": "shop_link", "label": "Shop link" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#E91E63" },
+    { "type": "color", "id": "soft_color", "label": "Soft background color", "default": "#F8E4EC" },
+    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "4.9 based on 2,000+ reviews" },
+    { "type": "richtext", "id": "subheading", "label": "Subheading", "default": "<p>A glow-boosting skincare ritual designed to deeply hydrate and smooth the look of tired skin overnight.</p>" },
+    { "type": "text", "id": "quantity_label", "label": "Quantity label", "default": "Quantity" },
+    { "type": "range", "id": "default_bundle_quantity", "label": "Default quantity", "min": 1, "max": 10, "step": 1, "default": 3 },
+    { "type": "text", "id": "atc_label", "label": "Add-to-cart label", "default": "ADD TO CART" },
+    { "type": "text", "id": "sold_out_label", "label": "Sold-out label", "default": "SOLD OUT" },
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show dynamic checkout button", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "bundle",
+      "name": "Bundle card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Starter Pack" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "1 unit" },
+        { "type": "range", "id": "quantity", "label": "Quantity added to cart", "min": 1, "max": 12, "step": 1, "default": 1 },
+        { "type": "text", "id": "badge", "label": "Badge" },
+        { "type": "checkbox", "id": "selected", "label": "Selected by default", "default": false }
+      ]
+    },
+    {
+      "type": "trust",
+      "name": "Trust item",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Free shipping" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TrySolys main product",
+      "blocks": [
+        { "type": "bundle", "settings": { "title": "Starter Pack", "subtitle": "1 unit", "quantity": 1 } },
+        { "type": "bundle", "settings": { "title": "Best Value Pack", "subtitle": "3 units", "quantity": 3, "badge": "MOST POPULAR", "selected": true } },
+        { "type": "bundle", "settings": { "title": "Ritual Pack", "subtitle": "6 units", "quantity": 6 } },
+        { "type": "trust", "settings": { "text": "Free shipping" } },
+        { "type": "trust", "settings": { "text": "30-day guarantee" } },
+        { "type": "trust", "settings": { "text": "Secure checkout" } },
+        { "type": "trust", "settings": { "text": "Cruelty-free" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

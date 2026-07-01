@@ -1,0 +1,380 @@
+{
+  "sections": {
+    "main": {
+      "type": "trysolys-main-product",
+      "settings": {
+        "announcement_text": "FREE US SHIPPING ON ORDERS OVER $50",
+        "brand_name": "TrySolys",
+        "shop_link_label": "SHOP",
+        "accent_color": "#E91E63",
+        "soft_color": "#F8E4EC",
+        "rating_text": "4.9 based on 2,000+ reviews",
+        "subheading": "<p>A glow-boosting skincare ritual designed to deeply hydrate and smooth the look of tired skin overnight.</p>",
+        "quantity_label": "Quantity",
+        "default_bundle_quantity": 3,
+        "atc_label": "ADD TO CART",
+        "sold_out_label": "SOLD OUT",
+        "show_dynamic_checkout": false
+      },
+      "blocks": {
+        "bundle_1": {
+          "type": "bundle",
+          "settings": {
+            "title": "Starter Pack",
+            "subtitle": "1 unit",
+            "quantity": 1,
+            "selected": false
+          }
+        },
+        "bundle_2": {
+          "type": "bundle",
+          "settings": {
+            "title": "Best Value Pack",
+            "subtitle": "3 units",
+            "quantity": 3,
+            "badge": "MOST POPULAR",
+            "selected": true
+          }
+        },
+        "bundle_3": {
+          "type": "bundle",
+          "settings": {
+            "title": "Ritual Pack",
+            "subtitle": "6 units",
+            "quantity": 6,
+            "selected": false
+          }
+        },
+        "trust_1": {
+          "type": "trust",
+          "settings": { "text": "Free shipping" }
+        },
+        "trust_2": {
+          "type": "trust",
+          "settings": { "text": "30-day guarantee" }
+        },
+        "trust_3": {
+          "type": "trust",
+          "settings": { "text": "Secure checkout" }
+        },
+        "trust_4": {
+          "type": "trust",
+          "settings": { "text": "Cruelty-free" }
+        }
+      },
+      "block_order": ["bundle_1", "bundle_2", "bundle_3", "trust_1", "trust_2", "trust_3", "trust_4"]
+    },
+    "videos": {
+      "type": "trysolys-video-grid",
+      "settings": {
+        "background_color": "#FFFFFF",
+        "accent_color": "#E91E63",
+        "heading": "See it in action"
+      },
+      "blocks": {
+        "video_1": { "type": "video", "settings": { "label": "Vertical video" } },
+        "video_2": { "type": "video", "settings": { "label": "Vertical video" } },
+        "video_3": { "type": "video", "settings": { "label": "Vertical video" } },
+        "video_4": { "type": "video", "settings": { "label": "Vertical video" } }
+      },
+      "block_order": ["video_1", "video_2", "video_3", "video_4"]
+    },
+    "why": {
+      "type": "trysolys-why-choose",
+      "settings": {
+        "accent_color": "#E91E63",
+        "heading": "Why Women Choose",
+        "heading_italic": "The Overnight Glow Ritual",
+        "intro": "<p>A soft, sensorial skincare ritual designed for skin that looks tired, dry, or uneven.</p>"
+      },
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "*",
+            "title": "Deep hydration",
+            "text": "<p>Helps skin feel soft, fresh, and replenished by morning.</p>"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "+",
+            "title": "Soft glow finish",
+            "text": "<p>Designed to leave the complexion looking smoother and more radiant.</p>"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "o",
+            "title": "Easy night ritual",
+            "text": "<p>Simple to apply before bed and easy to add to your skincare routine.</p>"
+          }
+        }
+      },
+      "block_order": ["feature_1", "feature_2", "feature_3"]
+    },
+    "before_after": {
+      "type": "trysolys-before-after",
+      "settings": {
+        "accent_color": "#E91E63",
+        "heading": "Instantly transform your",
+        "heading_italic": "skin",
+        "subheading": "<p>Show the transformation clearly with close-up before and after imagery.</p>",
+        "before_label": "BEFORE",
+        "after_label": "AFTER",
+        "caption": "See the difference"
+      }
+    },
+    "highlight": {
+      "type": "trysolys-highlight-stat",
+      "settings": {
+        "accent_color": "#E91E63",
+        "number": "24",
+        "label": "Hour Deep Hydration",
+        "heading": "Tired, Dull &",
+        "heading_italic": "Dry",
+        "body": "<p>Describe the skin concern this product solves in a warm, empathetic voice.</p><p>Introduce the hero ingredient or formula story that makes the result possible.</p>",
+        "button_label": "See the Ingredient List"
+      }
+    },
+    "how_to": {
+      "type": "trysolys-how-to-use",
+      "settings": {
+        "accent_color": "#E91E63",
+        "heading": "Your Overnight",
+        "heading_italic": "Glow"
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Cleanse skin",
+            "text": "<p>Start with clean, dry skin so the formula can sit evenly as the final step in your routine.</p>"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Apply product",
+            "text": "<p>Apply a thin, even layer across the face, avoiding the eye area.</p>",
+            "badge": "NEW"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Massage in",
+            "text": "<p>Gently smooth outward using light pressure until the texture feels comfortable on skin.</p>"
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "Sleep and glow",
+            "text": "<p>Leave it on overnight and wake up to skin that feels softer, fresher, and more hydrated.</p>"
+          }
+        }
+      },
+      "block_order": ["step_1", "step_2", "step_3", "step_4"]
+    },
+    "ingredients": {
+      "type": "trysolys-ingredients",
+      "settings": {
+        "accent_color": "#E91E63",
+        "heading": "Why It",
+        "heading_italic": "Works"
+      },
+      "blocks": {
+        "ingredient_1": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Hydrating complex",
+            "text": "<p>Supports a soft, plump feel and helps improve the look of dry, tired skin.</p>"
+          }
+        },
+        "ingredient_2": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Glow support",
+            "text": "<p>Helps the complexion appear smoother, fresher, and more luminous.</p>"
+          }
+        },
+        "ingredient_3": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Barrier care",
+            "text": "<p>Designed to support skin comfort while you rest overnight.</p>"
+          }
+        }
+      },
+      "block_order": ["ingredient_1", "ingredient_2", "ingredient_3"]
+    },
+    "stats": {
+      "type": "trysolys-stats-list",
+      "settings": {
+        "accent_color": "#E91E63",
+        "heading": "Statistics",
+        "heading_italic": "Do Not Lie",
+        "footnote": "Based on customer feedback and product surveys."
+      },
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "percent": "98%",
+            "claim": "Skin looked more radiant",
+            "source": "Reported after consistent use."
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "percent": "94%",
+            "claim": "Skin felt more hydrated",
+            "source": "Reported during the nighttime routine."
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "percent": "89%",
+            "claim": "Texture looked smoother",
+            "source": "Based on user feedback."
+          }
+        }
+      },
+      "block_order": ["stat_1", "stat_2", "stat_3"]
+    },
+    "testimonials": {
+      "type": "trysolys-testimonials",
+      "settings": {
+        "accent_color": "#E91E63",
+        "heading": "What You Can Expect",
+        "chips": "Overnight Hydration, Glow, Smoother Skin, Even Tone, Fewer Lines, Soft Feel",
+        "badge": "Verified reviews",
+        "verified_label": "Verified"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "title": "My skin feels softer",
+            "body": "<p>The texture feels lovely and my skin looks fresher in the morning. It became an easy part of my nighttime routine.</p>",
+            "name": "Emily R."
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "title": "Visible morning glow",
+            "body": "<p>I like that it feels rich without being too heavy. My skin feels hydrated and smoother when I wake up.</p>",
+            "name": "Sofia M."
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "title": "Worth adding nightly",
+            "body": "<p>This made my routine feel more luxurious, and I noticed my skin looked less dull after consistent use.</p>",
+            "name": "Natalie K."
+          }
+        }
+      },
+      "block_order": ["review_1", "review_2", "review_3"]
+    },
+    "faq": {
+      "type": "trysolys-faq",
+      "settings": {
+        "heading": "Frequently Asked Questions"
+      },
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I use this product?",
+            "answer": "<p>Apply it as the final step in your nighttime routine after cleansing and skincare. Use a thin, even layer and leave it on overnight.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Is it suitable for sensitive skin?",
+            "answer": "<p>Always patch test first if your skin is sensitive. If irritation occurs, stop use and consult a skincare professional.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "When will I see results?",
+            "answer": "<p>Many customers notice softer-feeling skin quickly, while visible improvements may depend on your skin type and routine consistency.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "<p>Add your store's shipping policy, processing time, and delivery estimate here.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>Add your guarantee, return window, and refund process here.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5"]
+    },
+    "guarantee": {
+      "type": "trysolys-guarantee",
+      "settings": {
+        "accent_color": "#E91E63",
+        "seal_text": "Seal",
+        "heading": "Money-Back Guarantee",
+        "body": "<p>Try it risk free. If you are not satisfied, contact us within the return window and we will help with your refund.</p>",
+        "button_label": "CLAIM NOW",
+        "microtrust": "Secure checkout - Free returns - 60-day guarantee"
+      }
+    },
+    "footer": {
+      "type": "trysolys-footer",
+      "settings": {
+        "brand": "TrySolys",
+        "tagline": "<p>Skincare rituals designed for soft, glowing, confident skin.</p>",
+        "copyright": "Copyright 2026 TrySolys. All rights reserved."
+      },
+      "blocks": {
+        "menu_1": {
+          "type": "menu",
+          "settings": { "heading": "Shop" }
+        },
+        "menu_2": {
+          "type": "menu",
+          "settings": { "heading": "Support" }
+        },
+        "menu_3": {
+          "type": "menu",
+          "settings": { "heading": "Contact" }
+        }
+      },
+      "block_order": ["menu_1", "menu_2", "menu_3"]
+    }
+  },
+  "order": [
+    "main",
+    "videos",
+    "why",
+    "before_after",
+    "highlight",
+    "how_to",
+    "ingredients",
+    "stats",
+    "testimonials",
+    "faq",
+    "guarantee",
+    "footer"
+  ]
+}
